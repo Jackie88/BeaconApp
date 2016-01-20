@@ -1,0 +1,24 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.unarin.cordova.beacon": {
+            "PACKAGE_NAME": "com.ui.apouni"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ui.apouni"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ui.apouni"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.ui.apouni"
+        }
+    },
+    "dependent_plugins": {}
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'"/>
+
+    <script src="js/libs/jquery/jquery.js"></script>
+
+    <script id="sap-ui-bootstrap"
+            src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+            data-sap-ui-libs="sap.m" data-sap-ui-theme="sap_bluecrystal"
+            data-sap-ui-xx-bindingSyntax="complex"
+            data-sap-ui-resourceroots='{
+		            "sap.ui.apouni": "./"
+		        }'>
+    </script>
+    <!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+    <script src="cordova.js"></script>
+    <script src="js/libs/evothings/evothings.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        sap.ui.getCore().attachInit(function () {
+            new sap.m.Shell({
+                app: new sap.ui.core.ComponentContainer({
+                    name: "sap.ui.apouni"
+                })
+            }).placeAt("content");
+        });
+    </script>
+</head>
+<body class="sapUiBody" role="application">
+    <div id="content"></div>
+</body>
+</html>

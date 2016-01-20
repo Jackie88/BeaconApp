@@ -1,0 +1,38 @@
+[
+	{
+        "Id" : "00001",
+        "Firstname" : "Jan",
+        "Lastname" : "Kowalski",
+        "DealerCentrum" : "POZNAN Centrum",
+        "Phone" : "111222333",
+        "Street" : "Krancowa",
+        "City" : "Poznań",
+        "Country" : "Poland",
+        "Email" : "porsche@poznan.com",
+        "ActiveVehicles" : "2"
+      },
+       {
+        "Id" : "00002",
+        "Firstname" : "Piotr",
+        "Lastname" : "Nowak",
+        "DealerCentrum" : "WAWA Centrum",
+        "Phone" : "222333444",
+        "Street" : "Polczynska",
+        "City" : "Warszawa",
+        "Country" : "Poland",
+        "Email" : "porsche@warszawa.com",
+        "ActiveVehicles" : "3"
+      },
+       {
+        "Id" : "00003",
+        "Firstname" : "Maciej",
+        "Lastname" : "Krawczyk",
+        "DealerCentrum" : "Katowice Centrum",
+        "Phone" : "333444555",
+        "Street" : "Kochlowicka",
+        "City" : "Katowice",
+        "Country" : "Poland",
+        "Email" : "porsche@katowice.com",
+        "ActiveVehicles" : "1"
+      }
+]
