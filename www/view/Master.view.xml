@@ -17,7 +17,9 @@
 									press="onSelect"
 									title="{DealerCentrum}"
 									number="{ActiveVehicles}"
-									numberUnit="Vehicles">
+									numberUnit="Vehicles" 
+                                    numberState="{path:'ActiveVehicles',formatter:'sap.ui.apouni.util.Formatter.checkNumber'}"
+                                    >
 							</ObjectListItem>
 						</items>
 				</List>

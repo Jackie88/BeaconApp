@@ -1,3 +1,5 @@
+jQuery.sap.require("sap.ui.apouni.util.Formatter");
+
 sap.ui.controller("sap.ui.apouni.view.Master", {
 
 	onInit : function() {
