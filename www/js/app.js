@@ -37,20 +37,20 @@ var app = (function()
             {
                 id: 'region1',
                 uuid: 'b9407f30-f5f8-466e-aff9-25556b57fe6d',
-                major: 31115,
-                minor: 22712
+                major: 2510,
+                minor: 30783
             },
             {
                 id: 'region2',
                 uuid: 'b9407f30-f5f8-466e-aff9-25556b57fe6d',
-                major: 46983,
-                minor: 37630
+                major: 42572,
+                minor: 35852
             },
             {
                 id: 'region3',
                 uuid: 'b9407f30-f5f8-466e-aff9-25556b57fe6d',
-                major: 41594,
-                minor: 2724
+                major: 6679,
+                minor: 57467
             }
         ];
 
