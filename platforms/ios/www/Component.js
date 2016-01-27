@@ -10,6 +10,8 @@ sap.ui.core.UIComponent.extend("sap.ui.apouni.Component", {
 			 rootView : "sap.ui.apouni.view.App",
 			 
 			 config : {
+				 //dodanie translacji
+				 resourceBundle : "i18n/messageBundle.properties",
 		         serviceConfig : {
 		             name : "MyMockServer",
 		             serviceUrl : "http://mymockserver/"
@@ -55,6 +57,15 @@ sap.ui.core.UIComponent.extend("sap.ui.apouni.Component", {
 		//get data from attributes above
         sap.ui.core.UIComponent.prototype.init.apply(this, arguments);
         var mConfig = this.getMetadata().getConfig();
+        
+        //dodanie plików z translacjami
+        var rootPath = jQuery.sap.getModulePath("sap.ui.apouni");
+		var i18nModel = new sap.ui.model.resource.ResourceModel(
+				{
+					bundleUrl : [ rootPath,
+							mConfig.resourceBundle ].join("/")
+				});
+		this.setModel(i18nModel, "i18n");		
 
         //get service url
         var sServiceUrl = mConfig.serviceConfig.serviceUrl;
