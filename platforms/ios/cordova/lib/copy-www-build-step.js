@@ -25,45 +25,45 @@
 // It is called as a build step from Xcode.
 
 var BUILT_PRODUCTS_DIR = process.env.BUILT_PRODUCTS_DIR,
-    FULL_PRODUCT_NAME = process.env.FULL_PRODUCT_NAME,
-    COPY_HIDDEN = process.env.COPY_HIDDEN,
-    PROJECT_FILE_PATH = process.env.PROJECT_FILE_PATH;
+  FULL_PRODUCT_NAME = process.env.FULL_PRODUCT_NAME,
+  COPY_HIDDEN = process.env.COPY_HIDDEN,
+  PROJECT_FILE_PATH = process.env.PROJECT_FILE_PATH
 
 var path = require('path'),
-    fs = require('fs'),
-    shell = require('shelljs'),
-    glob = require('glob'),
-    srcDir = 'www',
-    dstDir = path.join(BUILT_PRODUCTS_DIR, FULL_PRODUCT_NAME),
-    dstWwwDir = path.join(dstDir, 'www');
+  fs = require('fs'),
+  shell = require('shelljs'),
+  glob = require('glob'),
+  srcDir = 'www',
+  dstDir = path.join(BUILT_PRODUCTS_DIR, FULL_PRODUCT_NAME),
+  dstWwwDir = path.join(dstDir, 'www')
 
-if(!BUILT_PRODUCTS_DIR) {
-    console.error('The script is meant to be run as an Xcode build step and relies on env variables set by Xcode.');
-    process.exit(1);
+if (!BUILT_PRODUCTS_DIR) {
+  console.error('The script is meant to be run as an Xcode build step and relies on env variables set by Xcode.')
+  process.exit(1)
 }
 
 try {
-    fs.statSync(srcDir);
+  fs.statSync(srcDir)
 } catch (e) {
-    console.error('Path does not exist: ' + srcDir);
-    process.exit(1);
+  console.error('Path does not exist: ' + srcDir)
+  process.exit(1)
 }
 
 // Code signing files must be removed or else there are
 // resource signing errors.
-shell.rm('-rf', dstWwwDir);
-shell.rm('-rf', path.join(dstDir, '_CodeSignature'));
-shell.rm('-rf', path.join(dstDir, 'PkgInfo'));
-shell.rm('-rf', path.join(dstDir, 'embedded.mobileprovision'));
+shell.rm('-rf', dstWwwDir)
+shell.rm('-rf', path.join(dstDir, '_CodeSignature'))
+shell.rm('-rf', path.join(dstDir, 'PkgInfo'))
+shell.rm('-rf', path.join(dstDir, 'embedded.mobileprovision'))
 
 // Copy www dir recursively
-if(!!COPY_HIDDEN) {
-    shell.mkdir('-p', dstWwwDir);
-    shell.cp('-r', glob.sync(srcDir + '/**', { dot: true }), dstWwwDir);
+if (!!COPY_HIDDEN) {
+  shell.mkdir('-p', dstWwwDir)
+  shell.cp('-r', glob.sync(srcDir + '/**', { dot: true }), dstWwwDir)
 } else {
-    shell.cp('-r', srcDir, dstDir);
+  shell.cp('-r', srcDir, dstDir)
 }
 
 // Copy the config.xml file.
 shell.cp('-f', path.join(path.dirname(PROJECT_FILE_PATH), path.basename(PROJECT_FILE_PATH, '.xcodeproj'), 'config.xml'),
-    dstDir);
+  dstDir)

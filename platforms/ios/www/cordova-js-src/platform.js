@@ -20,9 +20,8 @@
 */
 
 module.exports = {
-    id: 'ios',
-    bootstrap: function() {
-        require('cordova/channel').onNativeReady.fire();
-    }
-};
-
+  id: 'ios',
+  bootstrap: function () {
+    require('cordova/channel').onNativeReady.fire()
+  }
+}

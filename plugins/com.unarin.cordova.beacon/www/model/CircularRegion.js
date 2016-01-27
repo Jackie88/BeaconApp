@@ -17,9 +17,8 @@
  under the License.
  */
 
-var _ = require('com.unarin.cordova.beacon.underscorejs');
-var Region = require('com.unarin.cordova.beacon.Region');
-
+var _ = require('com.unarin.cordova.beacon.underscorejs')
+var Region = require('com.unarin.cordova.beacon.Region')
 
 /**
  * @constructor
@@ -39,75 +38,73 @@ var Region = require('com.unarin.cordova.beacon.Region');
  * @throws {TypeError} if any of the parameters are passed with an incorrect type.
  * @throws {Error} if any of the parameters are containing invalid values.
  */
- 
-function CircularRegion (identifier, latitude, longitude, radius){
-	// Call the parent constructor, making sure (using Function#call)
-	// that "this" is set correctly during the call
-	Region.call(this, identifier);
 
-	CircularRegion.checkLatitude(latitude);
-	CircularRegion.checkLongitude(longitude);
-	CircularRegion.checkRadius(radius);
+function CircularRegion (identifier, latitude, longitude, radius) {
+  // Call the parent constructor, making sure (using Function#call)
+  // that "this" is set correctly during the call
+  Region.call(this, identifier)
 
-	this.latitude = latitude;
-	this.longitude = longitude;
-	this.radius = radius;
+  CircularRegion.checkLatitude(latitude)
+  CircularRegion.checkLongitude(longitude)
+  CircularRegion.checkRadius(radius)
 
-	// {String} typeName A String holding the name of the Objective-C type that the value
-	//    this will get converted to once the data is in the Objective-C runtime.
-	this.typeName = 'CircularRegion';
-  
-};
- 
+  this.latitude = latitude
+  this.longitude = longitude
+  this.radius = radius
+
+  // {String} typeName A String holding the name of the Objective-C type that the value
+  //    this will get converted to once the data is in the Objective-C runtime.
+  this.typeName = 'CircularRegion'
+
+}
+
 // Create a CircularRegion.prototype object that inherits from Region.prototype.
 // Note: A common error here is to use "new Region()" to create the
 // CircularRegion.prototype. That's incorrect for several reasons, not least 
 // that we don't have anything to give Region for the "identifier" 
 // argument. The correct place to call Region is above, where we call 
 // it from CircularRegion.
-CircularRegion.prototype = Object.create(Region.prototype);
+CircularRegion.prototype = Object.create(Region.prototype)
 
 // Set the "constructor" property to refer to CircularRegion
-CircularRegion.prototype.constructor = CircularRegion;
-
+CircularRegion.prototype.constructor = CircularRegion
 
 CircularRegion.checkRadius = function (radius) {
-	if (_.isNaN(radius)) {
-		throw new TypeError("'radius' is not a number.");
-	}
-	if (!_.isNumber(radius)) {
-		throw new TypeError("'radius'" + radius + ' is not number.');
-	}
-	if (radius < 0) {
-		throw new Error("'radius' has to be a finite, positive number.");
-	}
-};
+  if (_.isNaN(radius)) {
+    throw new TypeError("'radius' is not a number.")
+  }
+  if (!_.isNumber(radius)) {
+    throw new TypeError("'radius'" + radius + ' is not number.')
+  }
+  if (radius < 0) {
+    throw new Error("'radius' has to be a finite, positive number.")
+  }
+}
 
 CircularRegion.checkLongitude = function (longitude) {
-	if (_.isNaN(longitude)) {
-		throw new TypeError("'longitude' is not a number.");
-	}
-	if (!_.isNumber(longitude)) {
-		throw new TypeError(longitude + ' is not a Number.');
-	}
+  if (_.isNaN(longitude)) {
+    throw new TypeError("'longitude' is not a number.")
+  }
+  if (!_.isNumber(longitude)) {
+    throw new TypeError(longitude + ' is not a Number.')
+  }
 
-	if (longitude > 180 || longitude < -180) {
-		throw new Error(longitude + ' has to be a value between -180 and +180');
-	}
-};
+  if (longitude > 180 || longitude < -180) {
+    throw new Error(longitude + ' has to be a value between -180 and +180')
+  }
+}
 
 CircularRegion.checkLatitude = function (latitude) {
-	if (_.isNaN(latitude)) {
-		throw new TypeError("'latitude' is not a number.");
-	}
-	if (!_.isNumber(latitude)) {
-		throw new TypeError(latitude + ' is not a Number.');
-	}
+  if (_.isNaN(latitude)) {
+    throw new TypeError("'latitude' is not a number.")
+  }
+  if (!_.isNumber(latitude)) {
+    throw new TypeError(latitude + ' is not a Number.')
+  }
 
-	if (latitude > 90 || latitude < -90) {
-		throw new Error(latitude + ' has to be a value between -90 and +90');
-	}
-};
+  if (latitude > 90 || latitude < -90) {
+    throw new Error(latitude + ' has to be a value between -90 and +90')
+  }
+}
 
-module.exports = CircularRegion;
-
+module.exports = CircularRegion

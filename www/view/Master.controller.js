@@ -1,91 +1,88 @@
-jQuery.sap.require("sap.ui.apouni.util.Formatter");
+jQuery.sap.require('sap.ui.apouni.util.Formatter')
 
-sap.ui.controller("sap.ui.apouni.view.Master", {
+sap.ui.controller('sap.ui.apouni.view.Master', {
+  onInit: function () {
+    this.oUpdateFinishedDeferred = jQuery.Deferred()
 
-	onInit : function() {
-		this.oUpdateFinishedDeferred = jQuery.Deferred();
+    this.getView().byId('list').attachEventOnce('updateFinished',
+      function () {
+        this.oUpdateFinishedDeferred.resolve()
+      }, this)
 
-		this.getView().byId("list").attachEventOnce("updateFinished",
-				function() {
-					this.oUpdateFinishedDeferred.resolve();
-				}, this);
+    sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
+      this.onRouteMatched, this)
+  },
 
-		sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
-				this.onRouteMatched, this);
-	},
+  onRouteMatched: function (oEvent) {
+    var oList = this.getView().byId('list')
+    var sName = oEvent.getParameter('name')
+    var oArguments = oEvent.getParameter('arguments')
 
-	onRouteMatched : function(oEvent) {
+    // Wait for the list to be loaded once
+    jQuery.when(this.oUpdateFinishedDeferred).then(
+      jQuery.proxy(function () {
+        var aItems
 
-		var oList = this.getView().byId("list");
-		var sName = oEvent.getParameter("name");
-		var oArguments = oEvent.getParameter("arguments");
+        // On the empty hash select the first item
+        if (sName === 'main') {
+          this.selectDetail()
+        }
 
-		// Wait for the list to be loaded once
-		jQuery.when(this.oUpdateFinishedDeferred).then(
-				jQuery.proxy(function() {
-					var aItems;
+        // Try to select the item in the list
+        if (sName === 'dealer') {
+          aItems = oList.getItems()
+          for (var i = 0; i < aItems.length; i++) {
+            if (aItems[i].getBindingContext().getPath() === '/'
+              + oArguments.product) {
+              oList.setSelectedItem(aItems[i], true)
+              break
+            }
+          }
+        }
 
-					// On the empty hash select the first item
-					if (sName === "main") {
-						this.selectDetail();
-					}
+      }, this))
 
-					// Try to select the item in the list
-					if (sName === "dealer") {
+  },
 
-						aItems = oList.getItems();
-						for (var i = 0; i < aItems.length; i++) {
-							if (aItems[i].getBindingContext().getPath() === "/"
-									+ oArguments.product) {
-								oList.setSelectedItem(aItems[i], true);
-								break;
-							}
-						}
-					}
+  selectDetail: function () {
+    if (!sap.ui.Device.system.phone) {
+      var oList = this.getView().byId('list')
+      var aItems = oList.getItems()
+      if (aItems.length && !oList.getSelectedItem()) {
+        oList.setSelectedItem(aItems[0], true)
+        this.showDetail(aItems[0])
+      }
+    }
+  },
 
-				}, this));
+  onSearch: function () {
+    // add filter for search
+    var filters = []
+    var searchString = this.getView().byId('searchField').getValue()
+    if (searchString && searchString.length > 0) {
+      filters = [ new sap.ui.model.Filter('Name',
+        sap.ui.model.FilterOperator.Contains, searchString) ]
+    }
 
-	},
+    // update list binding
+    this.getView().byId('list').getBinding('items').filter(filters)
+  },
 
-	selectDetail : function() {
-		if (!sap.ui.Device.system.phone) {
-			var oList = this.getView().byId("list");
-			var aItems = oList.getItems();
-			if (aItems.length && !oList.getSelectedItem()) {
-				oList.setSelectedItem(aItems[0], true);
-				this.showDetail(aItems[0]);
-			}
-		}
-	},
+  onSelect: function (oEvent) {
+    // Get the list item, either from the listItem parameter or from the
+    // event's
+    // source itself (will depend on the device-dependent mode).
+    this.showDetail(oEvent.getParameter('listItem') || oEvent.getSource())
+  },
 
-	onSearch : function() {
-		// add filter for search
-		var filters = [];
-		var searchString = this.getView().byId("searchField").getValue();
-		if (searchString && searchString.length > 0) {
-			filters = [ new sap.ui.model.Filter("Name",
-					sap.ui.model.FilterOperator.Contains, searchString) ];
-		}
+  showDetail: function (oItem) {
+    // If we're on a phone, include nav in history; if not, don't.
+    var bReplace = jQuery.device.is.phone ? false : true
+    sap.ui.core.UIComponent.getRouterFor(this).navTo('dealer', {
+      from: 'master',
+      product: oItem.getBindingContext().getPath().substr(1),
+      tab: 'dealer'
+    }, bReplace)
 
-		// update list binding
-		this.getView().byId("list").getBinding("items").filter(filters);
-	},
-
-	onSelect : function(oEvent) {
-		// Get the list item, either from the listItem parameter or from the
-		// event's
-		// source itself (will depend on the device-dependent mode).
-		this.showDetail(oEvent.getParameter("listItem") || oEvent.getSource());
-	},
-
-	showDetail : function(oItem) {
-		// If we're on a phone, include nav in history; if not, don't.
-		var bReplace = jQuery.device.is.phone ? false : true;
-		sap.ui.core.UIComponent.getRouterFor(this).navTo("dealer", {
-			from : "master",
-			product : oItem.getBindingContext().getPath().substr(1),
-			tab : "dealer"
-		}, bReplace);
-
-	},
-});
+  },
+})

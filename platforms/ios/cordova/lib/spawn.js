@@ -19,8 +19,8 @@
 
 /*jshint node: true*/
 
-var Q    = require('q'),
-    proc = require('child_process');
+var Q = require('q'),
+  proc = require('child_process')
 
 /**
  * Run specified command with arguments 
@@ -30,21 +30,21 @@ var Q    = require('q'),
  * @param  {String} opt_verbosity Verbosity level for command stdout output, "verbose" by default
  * @return {Promise}              Promise either fullfilled or rejected with error code
  */
-module.exports = function(cmd, args, opt_cwd) {
-    var d = Q.defer();
-    try {
-        var child = proc.spawn(cmd, args, {cwd: opt_cwd, stdio: 'inherit'});
+module.exports = function (cmd, args, opt_cwd) {
+  var d = Q.defer()
+  try {
+    var child = proc.spawn(cmd, args, {cwd: opt_cwd, stdio: 'inherit'})
 
-        child.on('exit', function(code) {
-            if (code) {
-                d.reject('Error code ' + code + ' for command: ' + cmd + ' with args: ' + args);
-            } else {
-                d.resolve();
-            }
-        });
-    } catch(e) {
-        console.error('error caught: ' + e);
-        d.reject(e);
-    }
-    return d.promise;
-};
+    child.on('exit', function (code) {
+      if (code) {
+        d.reject('Error code ' + code + ' for command: ' + cmd + ' with args: ' + args)
+      } else {
+        d.resolve()
+      }
+    })
+  } catch(e) {
+    console.error('error caught: ' + e)
+    d.reject(e)
+  }
+  return d.promise
+}

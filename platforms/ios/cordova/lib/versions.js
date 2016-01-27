@@ -20,112 +20,110 @@
 */
 
 var child_process = require('child_process'),
-    Q = require('q');
+  Q = require('q')
 
-exports.get_apple_ios_version = function() {
-    var d = Q.defer();
-    child_process.exec('xcodebuild -showsdks', function(error, stdout, stderr) {
-        if (error) {
-            d.reject(stderr);
-        }
-        else {
-            d.resolve(stdout);
-        }
-    });
+exports.get_apple_ios_version = function () {
+  var d = Q.defer()
+  child_process.exec('xcodebuild -showsdks', function (error, stdout, stderr) {
+    if (error) {
+      d.reject(stderr)
+    } else {
+      d.resolve(stdout)
+    }
+  })
 
-    return d.promise.then(function(output) {
-        var regex = /[0-9]*\.[0-9]*/,
-            versions = [],
-            regexIOS = /^iOS \d+/;
-        output = output.split('\n');
-        for (var i = 0; i < output.length; i++) {
-            if (output[i].trim().match(regexIOS)) {
-                versions[versions.length] = parseFloat(output[i].match(regex)[0]);
-                }
-        }
-        versions.sort();
-        console.log(versions[0]);
-        return Q();
-    }, function(stderr) {
-        return Q.reject(stderr);
-    });
-};
+  return d.promise.then(function (output) {
+    var regex = /[0-9]*\.[0-9]*/,
+      versions = [],
+      regexIOS = /^iOS \d+/
+    output = output.split('\n')
+    for (var i = 0; i < output.length; i++) {
+      if (output[i].trim().match(regexIOS)) {
+        versions[versions.length] = parseFloat(output[i].match(regex)[0])
+      }
+    }
+    versions.sort()
+    console.log(versions[0])
+    return Q()
+  }, function (stderr) {
+    return Q.reject(stderr)
+  })
+}
 
-exports.get_apple_osx_version = function() {
-    var d = Q.defer();
-    child_process.exec('xcodebuild -showsdks', function(error, stdout, stderr) {
-        if (error) {
-            d.reject(stderr);
-        }
-        else {
-            d.resolve(stdout);
-        }
-    });
+exports.get_apple_osx_version = function () {
+  var d = Q.defer()
+  child_process.exec('xcodebuild -showsdks', function (error, stdout, stderr) {
+    if (error) {
+      d.reject(stderr)
+    } else {
+      d.resolve(stdout)
+    }
+  })
 
-    return d.promise.then(function(output) {
-        var regex = /[0-9]*\.[0-9]*/,
-            versions = [],
-            regexOSX = /^OS X \d+/;
-        output = output.split('\n');
-        for (var i = 0; i < output.length; i++) {
-            if (output[i].trim().match(regexOSX)) {
-                versions[versions.length] = parseFloat(output[i].match(regex)[0]);
-            }
-        }
-        versions.sort();
-        console.log(versions[0]);
-        return Q();
-    }, function(stderr) {
-        return Q.reject(stderr);
-    });
-};
+  return d.promise.then(function (output) {
+    var regex = /[0-9]*\.[0-9]*/,
+      versions = [],
+      regexOSX = /^OS X \d+/
+    output = output.split('\n')
+    for (var i = 0; i < output.length; i++) {
+      if (output[i].trim().match(regexOSX)) {
+        versions[versions.length] = parseFloat(output[i].match(regex)[0])
+      }
+    }
+    versions.sort()
+    console.log(versions[0])
+    return Q()
+  }, function (stderr) {
+    return Q.reject(stderr)
+  })
+}
 
-exports.get_apple_xcode_version = function() {
-    var d = Q.defer();
-    child_process.exec('xcodebuild -version', function(error, stdout, stderr) {
-        var versionMatch = /Xcode (.*)/.exec(stdout);
-        if (error || !versionMatch) {
-            d.reject(stderr);
-        } else {
-            d.resolve(versionMatch[1]);
-        }
-    });
-    return d.promise;
-};
+exports.get_apple_xcode_version = function () {
+  var d = Q.defer()
+  child_process.exec('xcodebuild -version', function (error, stdout, stderr) {
+    var versionMatch = /Xcode (.*)/.exec(stdout)
+    if (error || !versionMatch) {
+      d.reject(stderr)
+    } else {
+      d.resolve(versionMatch[1])
+    }
+  })
+  return d.promise
+}
 
 /**
  * Gets ios-deploy util version
  * @return {Promise} Promise that either resolved with ios-deploy version
  *                           or rejected in case of error
  */
-exports.get_ios_deploy_version = function() {
-    var d = Q.defer();
-    child_process.exec('ios-deploy --version', function(error, stdout, stderr) {
-        if (error) {
-            d.reject(stderr);
-        } else {
-            d.resolve(stdout);
-        }
-    });
-    return d.promise;
-};
+exports.get_ios_deploy_version = function () {
+  var d = Q.defer()
+  child_process.exec('ios-deploy --version', function (error, stdout, stderr) {
+    if (error) {
+      d.reject(stderr)
+    } else {
+      d.resolve(stdout)
+    }
+  })
+  return d.promise
+}
 
 /**
  * Gets ios-sim util version
  * @return {Promise} Promise that either resolved with ios-sim version
  *                           or rejected in case of error
  */
-exports.get_ios_sim_version = function() {
-    var d = Q.defer();
-    child_process.exec('ios-sim --version', function(error, stdout, stderr) {
-        if (error) {
-            d.reject(stderr);
-        } else {
-            d.resolve(stdout);
-        }
-    });
-    return d.promise;
-};
+exports.get_ios_sim_version = function () {
+  var d = Q.defer()
+  child_process.exec('ios-sim --version', function (error, stdout, stderr) {
+    if (error) {
+      d.reject(stderr)
+    } else {
+      d.resolve(stdout)
+    }
+  })
+  return d.promise
+}
 
 /**
  * Gets specific tool version
@@ -134,13 +132,13 @@ exports.get_ios_sim_version = function() {
  *                                   or rejected in case of error
  */
 exports.get_tool_version = function (toolName) {
-    switch (toolName) {
-        case 'xcodebuild': return exports.get_apple_xcode_version();
-        case 'ios-sim': return exports.get_ios_sim_version();
-        case 'ios-deploy': return exports.get_ios_deploy_version();
-        default: return Q.reject(toolName + ' is not valid tool name. Valid names are: \'xcodebuild\', \'ios-sim\' and \'ios-deploy\'');
-    }
-};
+  switch (toolName) {
+    case 'xcodebuild': return exports.get_apple_xcode_version()
+    case 'ios-sim': return exports.get_ios_sim_version()
+    case 'ios-deploy': return exports.get_ios_deploy_version()
+    default: return Q.reject(toolName + " is not valid tool name. Valid names are: 'xcodebuild', 'ios-sim' and 'ios-deploy'")
+  }
+}
 
 /**
  * Compares two semver-notated version strings. Returns number
@@ -151,28 +149,28 @@ exports.get_tool_version = function (toolName) {
  *                                    positive otherwise and 0 if versions are equal.
  */
 exports.compareVersions = function (version1, version2) {
-    function parseVer (version) {
-        return version.split('.').map(function (value) {
-            // try to convert version segment to Number
-            var parsed = Number(value);
-            // Number constructor is strict enough and will return NaN
-            // if conversion fails. In this case we won't be able to compare versions properly
-            if (isNaN(parsed)) {
-                throw 'Version should contain only numbers and dots';
-            }
-            return parsed;
-        });
-    }
-    var parsedVer1 = parseVer(version1);
-    var parsedVer2 = parseVer(version2);
+  function parseVer (version) {
+    return version.split('.').map(function (value) {
+      // try to convert version segment to Number
+      var parsed = Number(value)
+      // Number constructor is strict enough and will return NaN
+      // if conversion fails. In this case we won't be able to compare versions properly
+      if (isNaN(parsed)) {
+        throw 'Version should contain only numbers and dots'
+      }
+      return parsed
+    })
+  }
+  var parsedVer1 = parseVer(version1)
+  var parsedVer2 = parseVer(version2)
 
-    // Compare corresponding segments of each version
-    for (var i = 0; i < Math.max(parsedVer1.length, parsedVer2.length); i++) {
-        // if segment is not specified, assume that it is 0
-        // E.g. 3.1 is equal to 3.1.0
-        var ret = (parsedVer1[i] || 0) - (parsedVer2[i] || 0);
-        // if segments are not equal, we're finished
-        if (ret !== 0) return ret;
-    }
-    return 0;
-};
+  // Compare corresponding segments of each version
+  for (var i = 0; i < Math.max(parsedVer1.length, parsedVer2.length); i++) {
+    // if segment is not specified, assume that it is 0
+    // E.g. 3.1 is equal to 3.1.0
+    var ret = (parsedVer1[i] || 0) - (parsedVer2[i] || 0)
+    // if segments are not equal, we're finished
+    if (ret !== 0) return ret
+  }
+  return 0
+}

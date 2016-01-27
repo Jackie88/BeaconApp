@@ -1,4 +1,4 @@
-cordova.define("de.appplant.cordova.plugin.local-notification.LocalNotification", function(require, exports, module) { /*
+cordova.define('de.appplant.cordova.plugin.local-notification.LocalNotification', function (require, exports, module) { /*
     Copyright 2013-2014 appPlant UG
 
     Licensed to the Apache Software Foundation (ASF) under one
@@ -18,27 +18,26 @@ cordova.define("de.appplant.cordova.plugin.local-notification.LocalNotification"
     specific language governing permissions and limitations
     under the License.
 */
-
-var LocalNotification = function () {
+  var LocalNotification = function () {
     this._defaults = {
-        message:    '',
-        title:      '',
-        autoCancel: false,
-        badge:      0,
-        id:         '0',
-        json:       '',
-        repeat:     ''
-    };
-};
+      message: '',
+      title: '',
+      autoCancel: false,
+      badge: 0,
+      id: '0',
+      json: '',
+      repeat: ''
+    }
+  }
 
-LocalNotification.prototype = {
+  LocalNotification.prototype = {
     /**
      * Returns the default settings
      *
      * @return {Object}
      */
     getDefaults: function () {
-        return this._defaults;
+      return this._defaults
     },
 
     /**
@@ -47,13 +46,13 @@ LocalNotification.prototype = {
      * @param {Object} defaults
      */
     setDefaults: function (newDefaults) {
-        var defaults = this.getDefaults();
+      var defaults = this.getDefaults()
 
-        for (var key in defaults) {
-            if (newDefaults[key] !== undefined) {
-                defaults[key] = newDefaults[key];
-            }
+      for (var key in defaults) {
+        if (newDefaults[key] !== undefined) {
+          defaults[key] = newDefaults[key]
         }
+      }
     },
 
     /**
@@ -64,36 +63,39 @@ LocalNotification.prototype = {
      * @retrun {Object}
      */
     mergeWithDefaults: function (options) {
-        var defaults = this.getDefaults();
+      var defaults = this.getDefaults()
 
-        for (var key in defaults) {
-            if (options[key] === undefined) {
-                options[key] = defaults[key];
-            }
+      for (var key in defaults) {
+        if (options[key] === undefined) {
+          options[key] = defaults[key]
         }
+      }
 
-        return options;
+      return options
     },
 
     /**
      * @private
      */
     applyPlatformSpecificOptions: function () {
-        var defaults = this._defaults;
+      var defaults = this._defaults
 
-        switch (device.platform) {
+      switch (device.platform) {
         case 'Android':
-            defaults.icon       = 'icon';
-            defaults.smallIcon  = null;
-            defaults.ongoing    = false;
-            defaults.sound      = 'TYPE_NOTIFICATION'; break;
+          defaults.icon = 'icon'
+          defaults.smallIcon = null
+          defaults.ongoing = false
+          defaults.sound = 'TYPE_NOTIFICATION'
+          break
         case 'iOS':
-            defaults.sound      = ''; break;
-        case 'WinCE': case 'Win32NT':
-            defaults.smallImage = null;
-            defaults.image      = null;
-            defaults.wideImage  = null;
-        };
+          defaults.sound = ''
+          break
+        case 'WinCE':
+        case 'Win32NT':
+          defaults.smallImage = null
+          defaults.image = null
+          defaults.wideImage = null
+      }
     },
 
     /**
@@ -103,30 +105,30 @@ LocalNotification.prototype = {
      * @return {Number} The notification's ID
      */
     add: function (options) {
-        var options    = this.mergeWithDefaults(options),
-            callbackFn = null;
+      var options = this.mergeWithDefaults(options),
+        callbackFn = null
 
-        if (options.id) {
-            options.id = options.id.toString();
+      if (options.id) {
+        options.id = options.id.toString()
+      }
+
+      if (options.date === undefined) {
+        options.date = new Date()
+      }
+
+      if (typeof options.date == 'object') {
+        options.date = Math.round(options.date.getTime() / 1000)
+      }
+
+      if (['WinCE', 'Win32NT'].indexOf(device.platform)) {
+        callbackFn = function (cmd) {
+          eval(cmd)
         }
+      }
 
-        if (options.date === undefined) {
-            options.date = new Date();
-        }
+      cordova.exec(callbackFn, null, 'LocalNotification', 'add', [options])
 
-        if (typeof options.date == 'object') {
-            options.date = Math.round(options.date.getTime()/1000);
-        }
-
-        if (['WinCE', 'Win32NT'].indexOf(device.platform)) {
-            callbackFn = function (cmd) {
-                eval(cmd);
-            };
-        }
-
-        cordova.exec(callbackFn, null, 'LocalNotification', 'add', [options]);
-
-        return options.id;
+      return options.id
     },
 
     /**
@@ -135,14 +137,14 @@ LocalNotification.prototype = {
      * @param {String} id of the notification
      */
     cancel: function (id) {
-        cordova.exec(null, null, 'LocalNotification', 'cancel', [id.toString()]);
+      cordova.exec(null, null, 'LocalNotification', 'cancel', [id.toString()])
     },
 
     /**
      * Removes all previously registered notifications
      */
     cancelAll: function () {
-        cordova.exec(null, null, 'LocalNotification', 'cancelAll', []);
+      cordova.exec(null, null, 'LocalNotification', 'cancelAll', [])
     },
 
     /**
@@ -153,7 +155,7 @@ LocalNotification.prototype = {
      * @param {Function} callback
      */
     getScheduledIds: function (callback) {
-        cordova.exec(callback, null, 'LocalNotification', 'getScheduledIds', []);
+      cordova.exec(callback, null, 'LocalNotification', 'getScheduledIds', [])
     },
 
     /**
@@ -165,7 +167,7 @@ LocalNotification.prototype = {
      * @param {Function} callback
      */
     isScheduled: function (id, callback) {
-        cordova.exec(callback, null, 'LocalNotification', 'isScheduled', [id.toString()]);
+      cordova.exec(callback, null, 'LocalNotification', 'isScheduled', [id.toString()])
     },
 
     /**
@@ -177,18 +179,18 @@ LocalNotification.prototype = {
      *      The callback function's scope
      */
     hasPermission: function (callback, scope) {
-        var fn = function (badge) {
-            callback.call(scope || this, badge);
-        };
+      var fn = function (badge) {
+        callback.call(scope || this, badge)
+      }
 
-        cordova.exec(fn, null, 'LocalNotification', 'hasPermission', []);
+      cordova.exec(fn, null, 'LocalNotification', 'hasPermission', [])
     },
 
     /**
      * Ask for permission to show badges if not already granted.
      */
     promptForPermission: function () {
-        cordova.exec(null, null, 'LocalNotification', 'promptForPermission', []);
+      cordova.exec(null, null, 'LocalNotification', 'promptForPermission', [])
     },
 
     /**
@@ -226,33 +228,33 @@ LocalNotification.prototype = {
      * @param {String} json  A custom (JSON) string
      */
     oncancel: function (id, state, json) {}
-};
+  }
 
-var plugin  = new LocalNotification(),
-    channel = require('cordova/channel');
+  var plugin = new LocalNotification(),
+    channel = require('cordova/channel')
 
-channel.deviceready.subscribe( function () {
-    cordova.exec(null, null, 'LocalNotification', 'deviceready', []);
-});
+  channel.deviceready.subscribe(function () {
+    cordova.exec(null, null, 'LocalNotification', 'deviceready', [])
+  })
 
-channel.onCordovaReady.subscribe( function () {
-    channel.onCordovaInfoReady.subscribe( function () {
-        if (device.platform == 'Android') {
-            channel.onPause.subscribe( function () {
-                cordova.exec(null, null, 'LocalNotification', 'pause', []);
-            });
+  channel.onCordovaReady.subscribe(function () {
+    channel.onCordovaInfoReady.subscribe(function () {
+      if (device.platform == 'Android') {
+        channel.onPause.subscribe(function () {
+          cordova.exec(null, null, 'LocalNotification', 'pause', [])
+        })
 
-            channel.onResume.subscribe( function () {
-                cordova.exec(null, null, 'LocalNotification', 'resume', []);
-            });
+        channel.onResume.subscribe(function () {
+          cordova.exec(null, null, 'LocalNotification', 'resume', [])
+        })
 
-            cordova.exec(null, null, 'LocalNotification', 'resume', []);
-        }
+        cordova.exec(null, null, 'LocalNotification', 'resume', [])
+      }
 
-        plugin.applyPlatformSpecificOptions();
-    });
-});
+      plugin.applyPlatformSpecificOptions()
+    })
+  })
 
-module.exports = plugin;
+  module.exports = plugin
 
-});
+})

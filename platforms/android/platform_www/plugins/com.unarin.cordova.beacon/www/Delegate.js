@@ -1,4 +1,4 @@
-cordova.define("com.unarin.cordova.beacon.Delegate", function(require, exports, module) { /*
+cordova.define('com.unarin.cordova.beacon.Delegate', function (require, exports, module) { /*
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements.  See the NOTICE file
  distributed with this work for additional information
@@ -16,116 +16,107 @@ cordova.define("com.unarin.cordova.beacon.Delegate", function(require, exports, 
  specific language governing permissions and limitations
  under the License.
  */
+  var _ = require('com.unarin.cordova.beacon.underscorejs')
+  var Regions = require('com.unarin.cordova.beacon.Regions')
 
-var _ = require('com.unarin.cordova.beacon.underscorejs');
-var Regions = require('com.unarin.cordova.beacon.Regions');
+  /**
+   * Instances of this class are delegates between the {@link LocationManager} and
+   * the code that consumes the messages generated on in the native layer.
+   * 
+   * @example 
+   * 
+   * var delegate = new cordova.plugins.LocationManager.Delegate()
+   *
+   * delegate.didDetermineStateForRegion = function(region) {
+   *      console.log('didDetermineState:forRegion: ' + JSON.stringify(region))
+   * }
+   *
+   * delegate.didStartMonitoringForRegion = function (region) {
+   *      console.log('didStartMonitoringForRegion: ' + JSON.stringify(region))
+   * }
+   * 
+   * @returns {Delegate} An instance of the type {@type Delegate}.
+   */
+  function Delegate () {}
 
+  /**
+   * A bunch of static pre-processor methods to parse and unmarshal the region objects.
+   */
+  Delegate.didDetermineStateForRegion = function (pluginResult) {
+    pluginResult.region = Regions.fromJson(pluginResult.region)
+  }
 
-/**
- * Instances of this class are delegates between the {@link LocationManager} and
- * the code that consumes the messages generated on in the native layer.
- * 
- * @example 
- * 
- * var delegate = new cordova.plugins.LocationManager.Delegate();
- *
- * delegate.didDetermineStateForRegion = function(region) {
- *      console.log('didDetermineState:forRegion: ' + JSON.stringify(region));
- * };
- *
- * delegate.didStartMonitoringForRegion = function (region) {
- *      console.log('didStartMonitoringForRegion: ' + JSON.stringify(region));
- * }
- * 
- * @returns {Delegate} An instance of the type {@type Delegate}.
- */
-function Delegate (){};
+  Delegate.didStartMonitoringForRegion = function (pluginResult) {
+    pluginResult.region = Regions.fromJson(pluginResult.region)
+  }
 
-/**
- * A bunch of static pre-processor methods to parse and unmarshal the region objects.
- */
-Delegate.didDetermineStateForRegion = function(pluginResult) {
-	pluginResult.region = Regions.fromJson(pluginResult.region);
-};
+  Delegate.didExitRegion = function (pluginResult) {
+    pluginResult.region = Regions.fromJson(pluginResult.region)
+  }
 
-Delegate.didStartMonitoringForRegion = function(pluginResult) {
-	pluginResult.region = Regions.fromJson(pluginResult.region);
-};
+  Delegate.didEnterRegion = function (pluginResult) {
+    pluginResult.region = Regions.fromJson(pluginResult.region)
+  }
 
-Delegate.didExitRegion = function(pluginResult) {
-	pluginResult.region = Regions.fromJson(pluginResult.region);
-};
+  Delegate.didRangeBeaconsInRegion = function (pluginResult) {
+    pluginResult.region = Regions.fromJson(pluginResult.region)
+  }
 
-Delegate.didEnterRegion = function(pluginResult) {
-	pluginResult.region = Regions.fromJson(pluginResult.region);
-};
+  Delegate.peripheralManagerDidStartAdvertising = function (pluginResult) {
+    pluginResult.region = Regions.fromJson(pluginResult.region)
+  }
 
-Delegate.didRangeBeaconsInRegion = function(pluginResult) {
-	pluginResult.region = Regions.fromJson(pluginResult.region);
-};
+  Delegate.peripheralManagerDidUpdateState = function (pluginResult) {}
 
-Delegate.peripheralManagerDidStartAdvertising = function(pluginResult) {
-	pluginResult.region = Regions.fromJson(pluginResult.region);
-};
+  Delegate.didChangeAuthorizationStatus = function (status) {}
 
-Delegate.peripheralManagerDidUpdateState = function(pluginResult) {
+  Delegate.safeTraceLogging = function (message) {
+    if (!_.isString(message)) {
+      return
+    }
+    try {
+      cordova.plugins.locationManager.appendToDeviceLog(message)
+    } catch (e) {
+      console.error('Fail in safeTraceLogging()' + e.message, e)
+    }
+  }
 
-};
+  /**
+  * Default implementations of the Delegate methods which are noop.
+  */
 
-Delegate.didChangeAuthorizationStatus = function(status) {
-	
-};
+  Delegate.prototype.didDetermineStateForRegion = function () {
+    Delegate.safeTraceLogging('DEFAULT didDetermineStateForRegion()')
+  }
 
-Delegate.safeTraceLogging = function(message) {
-	if (!_.isString(message)) {
-		return;
-	}
-	try {
-		cordova.plugins.locationManager.appendToDeviceLog(message);
-	} catch (e) {
-		console.error('Fail in safeTraceLogging()' + e.message, e);
-	}
-};
+  Delegate.prototype.didStartMonitoringForRegion = function () {
+    Delegate.safeTraceLogging('DEFAULT didStartMonitoringForRegion()')
+  }
 
+  Delegate.prototype.didExitRegion = function () {
+    Delegate.safeTraceLogging('DEFAULT didExitRegion()')
+  }
 
-/**
-* Default implementations of the Delegate methods which are noop.
-*/
+  Delegate.prototype.didEnterRegion = function () {
+    Delegate.safeTraceLogging('DEFAULT didEnterRegion()')
+  }
 
-Delegate.prototype.didDetermineStateForRegion = function() {
-	Delegate.safeTraceLogging('DEFAULT didDetermineStateForRegion()');
-};
+  Delegate.prototype.didRangeBeaconsInRegion = function () {
+    Delegate.safeTraceLogging('DEFAULT didRangeBeaconsInRegion()')
+  }
 
-Delegate.prototype.didStartMonitoringForRegion = function() {
-	Delegate.safeTraceLogging('DEFAULT didStartMonitoringForRegion()');
-};
+  Delegate.prototype.peripheralManagerDidStartAdvertising = function () {
+    Delegate.safeTraceLogging('DEFAULT peripheralManagerDidStartAdvertising()')
+  }
 
-Delegate.prototype.didExitRegion = function() {
-	Delegate.safeTraceLogging('DEFAULT didExitRegion()');
-};
+  Delegate.prototype.peripheralManagerDidUpdateState = function () {
+    Delegate.safeTraceLogging('DEFAULT peripheralManagerDidUpdateState()')
+  }
 
-Delegate.prototype.didEnterRegion = function() {
-	Delegate.safeTraceLogging('DEFAULT didEnterRegion()');
-};
+  Delegate.prototype.didChangeAuthorizationStatus = function () {
+    Delegate.safeTraceLogging('DEFAULT didChangeAuthorizationStatus()')
+  }
 
-Delegate.prototype.didRangeBeaconsInRegion = function() {
-	Delegate.safeTraceLogging('DEFAULT didRangeBeaconsInRegion()');
-};
+  module.exports = Delegate
 
-
-Delegate.prototype.peripheralManagerDidStartAdvertising = function() {
-	Delegate.safeTraceLogging('DEFAULT peripheralManagerDidStartAdvertising()');
-};
-
-Delegate.prototype.peripheralManagerDidUpdateState = function() {
-	Delegate.safeTraceLogging('DEFAULT peripheralManagerDidUpdateState()');
-};
-
-Delegate.prototype.didChangeAuthorizationStatus = function() {
-	Delegate.safeTraceLogging('DEFAULT didChangeAuthorizationStatus()');
-};
-
-
-module.exports = Delegate;
-
-});
+})

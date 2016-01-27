@@ -17,7 +17,7 @@
  under the License.
  */
 
-var _ = require('com.unarin.cordova.beacon.underscorejs');
+var _ = require('com.unarin.cordova.beacon.underscorejs')
 
 /**
  * Base class for different types of regions that the [LocationManager] can monitor.
@@ -28,19 +28,17 @@ var _ = require('com.unarin.cordova.beacon.underscorejs');
  *    This value must not be nil.
  */
 function Region (identifier) {
-	Region.checkIdentifier(identifier);
-    this.identifier = identifier;
-};
+  Region.checkIdentifier(identifier)
+  this.identifier = identifier
+}
 
 Region.checkIdentifier = function (identifier) {
-	if (!_.isString(identifier)) {
-		throw new TypeError(identifier + ' is not a String.');
-	}
-	if (_.isEmpty(identifier)) {
-		throw new Error("'identifier' cannot be an empty string.");
-	}
-};
+  if (!_.isString(identifier)) {
+    throw new TypeError(identifier + ' is not a String.')
+  }
+  if (_.isEmpty(identifier)) {
+    throw new Error("'identifier' cannot be an empty string.")
+  }
+}
 
-module.exports = Region;
-
-
+module.exports = Region

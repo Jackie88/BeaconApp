@@ -19,11 +19,11 @@
        under the License.
 */
 
-var child_process = require("child_process");
-var Q             = require("q");
+var child_process = require('child_process')
+var Q = require('q')
 
 // constants
-var DEFAULT_MAX_BUFFER = 1024000;
+var DEFAULT_MAX_BUFFER = 1024000
 
 // Takes a command and optional current working directory.
 // Returns a promise that either resolves with the stdout, or
@@ -37,32 +37,30 @@ var DEFAULT_MAX_BUFFER = 1024000;
 //
 // NOTE:
 //      exec documented here - https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback
-module.exports = function(cmd, opt_cwd, options) {
+module.exports = function (cmd, opt_cwd, options) {
+  var d = Q.defer()
 
-    var d = Q.defer();
+  if (typeof options === 'undefined') {
+    options = {}
+  }
 
-    if (typeof options === "undefined") {
-        options = {};
-    }
+  // override cwd to preserve old opt_cwd behavior
+  options.cwd = opt_cwd
 
-    // override cwd to preserve old opt_cwd behavior
-    options.cwd = opt_cwd;
+  // set maxBuffer
+  if (typeof options.maxBuffer === 'undefined') {
+    options.maxBuffer = DEFAULT_MAX_BUFFER
+  }
 
-    // set maxBuffer
-    if (typeof options.maxBuffer === "undefined") {
-        options.maxBuffer = DEFAULT_MAX_BUFFER;
-    }
+  try {
+    child_process.exec(cmd, options, function (err, stdout, stderr) {
+      if (err) d.reject('Error executing "' + cmd + '": ' + stderr)
+      else d.resolve(stdout)
+    })
+  } catch(e) {
+    console.error('error caught: ' + e)
+    d.reject(e)
+  }
 
-    try {
-        child_process.exec(cmd, options, function(err, stdout, stderr) {
-            if (err) d.reject("Error executing \"" + cmd + "\": " + stderr);
-            else d.resolve(stdout);
-        });
-    } catch(e) {
-        console.error("error caught: " + e);
-        d.reject(e);
-    }
-
-    return d.promise;
-};
-
+  return d.promise
+}

@@ -17,11 +17,10 @@
  under the License.
  */
 
-var _ = require('com.unarin.cordova.beacon.underscorejs');
-var CircularRegion = require('com.unarin.cordova.beacon.CircularRegion');
-var BeaconRegion = require('com.unarin.cordova.beacon.BeaconRegion');
-var Region = require('com.unarin.cordova.beacon.Region');
-
+var _ = require('com.unarin.cordova.beacon.underscorejs')
+var CircularRegion = require('com.unarin.cordova.beacon.CircularRegion')
+var BeaconRegion = require('com.unarin.cordova.beacon.BeaconRegion')
+var Region = require('com.unarin.cordova.beacon.Region')
 
 /**
  * Utility class for un-marshalling {Region} instances from JSON objects,
@@ -29,8 +28,7 @@ var Region = require('com.unarin.cordova.beacon.Region');
  * 
  * @type {Regions}
  */
-function Regions (){};
-
+function Regions () {}
 
 /**
  * Creates an instance of {@link Region} from the provided map of parameters.
@@ -39,47 +37,44 @@ function Regions (){};
  * 
  * @returns {Region} Returns a subclass of {@link Region}.
  */
-Regions.fromJson = function(jsonMap) {
+Regions.fromJson = function (jsonMap) {
+  var typeName = jsonMap.typeName
+  if (!_.isString(typeName) || _.isEmpty(typeName)) {
+    throw new TypeError('jsonMap need to have a key "typeName"')
+  }
 
-	var typeName = jsonMap.typeName;
-	if (!_.isString(typeName) || _.isEmpty(typeName)) {
-		throw new TypeError('jsonMap need to have a key "typeName"');
-	}
+  var identifier = jsonMap.identifier
 
-	var identifier = jsonMap.identifier;
+  var region = null
+  if (typeName === 'CircularRegion') {
+    var latitude = jsonMap.latitude
+    var longitude = jsonMap.longitude
+    var radius = jsonMap.radius
+    region = new CircularRegion(identifier, latitude, longitude, radius)
 
-	var region = null;
-	if (typeName === 'CircularRegion') {
+  } else if (typeName === 'BeaconRegion') {
+    var uuid = jsonMap.uuid
+    var major = jsonMap.major
+    var minor = jsonMap.minor
+    region = new BeaconRegion(identifier, uuid, major, minor)
+  } else {
+    console.error('Unrecognized Region typeName: ' + typeName)
+  }
 
-		var latitude = jsonMap.latitude;
-		var longitude = jsonMap.longitude;
-		var radius = jsonMap.radius;
-		region = new CircularRegion(identifier, latitude, longitude, radius);
+  return region
+}
 
-	} else if (typeName === 'BeaconRegion') {
+Regions.fromJsonArray = function (jsonArray) {
+  if (!_.isArray(jsonArray)) {
+    throw new TypeError('Expected an array.')
+  }
 
-		var uuid = jsonMap.uuid;
-		var major = jsonMap.major;
-		var minor = jsonMap.minor;
-		region = new BeaconRegion(identifier, uuid, major, minor);
-	} else {
-		console.error('Unrecognized Region typeName: ' + typeName);
-	}
-
-	return region;
-};
-
-Regions.fromJsonArray = function(jsonArray) {
-	if (!_.isArray(jsonArray)) {
-		throw new TypeError('Expected an array.');
-	}
-		
-	var result = [];
-	_.each(jsonArray, function(region) {
-		result.push(Regions.fromJson(region));
-	});
-	return result;
-};
+  var result = []
+  _.each(jsonArray, function (region) {
+    result.push(Regions.fromJson(region))
+  })
+  return result
+}
 
 /**
  * Validates the input parameter [region] to be an instance of {Region}.
@@ -88,25 +83,23 @@ Regions.fromJsonArray = function(jsonArray) {
  * 
  * @returns {undefined} If [region] is an instance of {Region}, throws otherwise.
  */
-Regions.checkRegionType = function(region) {
-	var regionHasInvalidType = !(region instanceof Region);
-	if (regionHasInvalidType) {
-		throw new TypeError('The region parameter has to be an instance of Region');
-	}
-};
+Regions.checkRegionType = function (region) {
+  var regionHasInvalidType = !(region instanceof Region)
+  if (regionHasInvalidType) {
+    throw new TypeError('The region parameter has to be an instance of Region')
+  }
+}
 
-Regions.isRegion = function(object) {
-	return object instanceof Region;
-};
+Regions.isRegion = function (object) {
+  return object instanceof Region
+}
 
-Regions.isCircularRegion = function(object) {
-	return object instanceof CircularRegion;
-};
+Regions.isCircularRegion = function (object) {
+  return object instanceof CircularRegion
+}
 
-Regions.isBeaconRegion = function(object) {
-	return object instanceof BeaconRegion;
-};
+Regions.isBeaconRegion = function (object) {
+  return object instanceof BeaconRegion
+}
 
-
-module.exports = Regions;
-
+module.exports = Regions
