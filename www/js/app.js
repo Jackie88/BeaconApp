@@ -11,6 +11,13 @@ var app = (function () {
   // Nearest ranged beacon.
   var mNearestBeacon = null
 
+  mNearestBeacon = {
+    uuid: 1,
+    major: 11,
+    proximity: 2,
+    accuracy: 99,
+    rssi: 1
+  }
   // Timer that displays nearby beacons.
   var mNearestBeaconDisplayTimer = null
 
@@ -62,6 +69,7 @@ var app = (function () {
   }
 
   app.initialize = function () {
+
     document.addEventListener('deviceready', onDeviceReady, false)
     document.addEventListener('pause', onAppToBackground, false)
     document.addEventListener('resume', onAppToForeground, false)
@@ -202,6 +210,9 @@ var app = (function () {
       'Distance: ' + mNearestBeacon.accuracy + ' ' +
       'RSSI: ' + mNearestBeacon.rssi + ' ' +
       alert(element)
+  }
+  app.getNearestBeacon = function(){
+    return mNearestBeacon;
   }
 
   function displayRecentRegionEvent () {
