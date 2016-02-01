@@ -12,12 +12,22 @@ var app = (function () {
   var mNearestBeacon = null
 
   mNearestBeacon = {
-    uuid: 1,
-    major: 11,
+    id: '00003',
+    uuid: 'b9407f30-f5f8-466e-aff9-25556b57fe6d',
+    major: 2510,
     proximity: 2,
     accuracy: 99,
     rssi: 1
   }
+
+  //only for testing without beacons
+  app.changeBeacon = function(){
+    app.beaconChanged = true;
+
+    items =['00001', '00002','00003'];
+    mNearestBeacon.id = items[Math.floor(Math.random()*items.length)];
+    console.log("changed Beacon" + mNearestBeacon.id);
+  };
   // Timer that displays nearby beacons.
   var mNearestBeaconDisplayTimer = null
 
@@ -184,7 +194,9 @@ var app = (function () {
     beacon1.accuracy < beacon2.accuracy
   }
 
+  app.beaconChanged = false;
   function updateNearestBeacon (beacons) {
+    console.log('updating')
     for (var i = 0; i < beacons.length; ++i) {
       var beacon = beacons[i]
       if (!mNearestBeacon) {
@@ -193,6 +205,9 @@ var app = (function () {
         if (isSameBeacon(beacon, mNearestBeacon) ||
           isNearerThan(beacon, mNearestBeacon)) {
           mNearestBeacon = beacon
+          if (isSameBeacon(beacon, mNearestBeacon)) {
+            app.beaconChanged = true;
+          }
         }
       }
     }

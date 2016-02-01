@@ -10,7 +10,36 @@ sap.ui.controller('sap.ui.apouni.view.Master', {
       }, this)
 
     sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
-      this.onRouteMatched, this)
+      this.onRouteMatched, this);
+
+    var that = this;
+    setInterval( function() {
+      if (app.beaconChanged) {
+        that.onBeaconChange(that);
+      }
+
+    }, 3000);
+
+    setInterval( function() {
+      app.changeBeacon();
+
+    }, 6000);
+
+  },
+
+  onBeaconChange: function(that) {
+      app.beaconChanged = false;
+     var oList = that.getView().byId('list')
+
+        aItems = oList.getItems()
+
+        beacon = app.getNearestBeacon();
+        for (var i = 0; i < aItems.length; i++) {
+            if (aItems[i].getBindingContext().getObject().Id == beacon.id) {
+               oList.setSelectedItem(aItems[i], true)
+               that.showDetail(aItems[i])
+            }
+          }
   },
 
   onRouteMatched: function (oEvent) {
