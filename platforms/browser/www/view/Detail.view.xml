@@ -1,27 +1,27 @@
 <mvc:View controllerName="sap.ui.apouni.view.Detail" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
 	xmlns="sap.m">
-	
+
 	<App>
 	<!-- dodanie translacji dla widoku -->
 		<Page title="Detail Page">
-		  
+
       <customHeader>
           <Toolbar>
             <Button type="Back" press="onNavBack"/>
             <ToolbarSpacer/>
-            <Title text="{i18n>detailTitle}"/>     
+            <Title text="{i18n>detailTitle}"/>
             <ToolbarSpacer/>
             <Button icon="sap-icon://favorite" press="onFavoriteSelect"/>
           </Toolbar>
-        </customHeader>  
-        
+        </customHeader>
+
 			<content>
-        <ObjectHeader title="{Firstname} {Lastname}" number="{Id}">
-					<attributes>
-						<ObjectAttribute text="jestem" />
-					</attributes>
+
+        <Image height="50%" src="{imagePath}"/>
+        <ObjectHeader title="{CompanyName}">
 				</ObjectHeader>
+        
 	<!-- użycie fragmentów zamiast wszystkiego w jednym pliku -->
 				<IconTabBar
 				select="onDetailSelect"
@@ -37,10 +37,18 @@
 					</IconTabFilter>
 					<IconTabFilter
 						key="vehicle"
-						text="{i18n>iconTabFilterVehicle}"
-						icon="sap-icon://car-rental">
+						text="{i18n>iconTabFilterDirections}"
+						icon="sap-icon://dimension">
 						<content>
-							<core:Fragment fragmentName="sap.ui.apouni.view.VehiclesForm" type="XML" />
+							<core:Fragment fragmentName="sap.ui.apouni.view.DirectionsForm" type="XML" />
+						</content>
+					</IconTabFilter>
+          <IconTabFilter
+						key="products"
+						text="{i18n>iconTabFilterProducts}"
+						icon="sap-icon://basket">
+						<content>
+							<core:Fragment fragmentName="sap.ui.apouni.view.ProductsForm" type="XML" />
 						</content>
 					</IconTabFilter>
 				</items>

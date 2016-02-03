@@ -35,7 +35,7 @@ sap.ui.controller('sap.ui.apouni.view.Detail', {
           filter = new sap.ui.model.Filter('Dealer', sap.ui.model.FilterOperator.EQ, dealerId)
 
         if (oIconTabBar.getSelectedKey() === 'vehicle') {
-          oView.byId('vehTable').getBinding('items').filter([filter])
+          oView.byId('prodTable').getBinding('items').filter([filter])
         }
       }
     }, this)
@@ -56,7 +56,7 @@ sap.ui.controller('sap.ui.apouni.view.Detail', {
 
   onFavoriteSelect: function (evt) {
     const oModel = this.getView().getModel()
-    const id = this.getView().getBindingContext().getObject().id
+    const id = this.getView().getBindingContext().getObject().Id
 
     oModel.setProperty('/DealerSet(' + id + ')/Favorite', '1')
     // console.log(oModel.getProperty('/DealerSet(' + id + ')/Favorite'))

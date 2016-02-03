@@ -19,12 +19,9 @@
 			<content>
 
         <Image height="50%" src="{imagePath}"/>
-
-        <ObjectHeader title="{Firstname} {Lastname}" number="{Id}">
-					<attributes>
-						<ObjectAttribute text="jestem" />
-					</attributes>
+        <ObjectHeader title="{CompanyName}">
 				</ObjectHeader>
+        
 	<!-- użycie fragmentów zamiast wszystkiego w jednym pliku -->
 				<IconTabBar
 				select="onDetailSelect"
@@ -40,10 +37,18 @@
 					</IconTabFilter>
 					<IconTabFilter
 						key="vehicle"
-						text="{i18n>iconTabFilterVehicle}"
-						icon="sap-icon://car-rental">
+						text="{i18n>iconTabFilterDirections}"
+						icon="sap-icon://dimension">
 						<content>
-							<core:Fragment fragmentName="sap.ui.apouni.view.VehiclesForm" type="XML" />
+							<core:Fragment fragmentName="sap.ui.apouni.view.DirectionsForm" type="XML" />
+						</content>
+					</IconTabFilter>
+          <IconTabFilter
+						key="products"
+						text="{i18n>iconTabFilterProducts}"
+						icon="sap-icon://basket">
+						<content>
+							<core:Fragment fragmentName="sap.ui.apouni.view.ProductsForm" type="XML" />
 						</content>
 					</IconTabFilter>
 				</items>
