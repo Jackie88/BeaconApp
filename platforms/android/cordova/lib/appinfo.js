@@ -19,23 +19,23 @@
        under the License.
 */
 
-var path = require('path')
-var fs = require('fs')
-var cachedAppInfo = null
+var path = require('path');
+var fs = require('fs');
+var cachedAppInfo = null;
 
-function readAppInfoFromManifest () {
-  var manifestPath = path.join(__dirname, '..', '..', 'AndroidManifest.xml')
-  var manifestData = fs.readFileSync(manifestPath, {encoding: 'utf8'})
-  var packageName = /\bpackage\s*=\s*"(.+?)"/.exec(manifestData)
-  if (!packageName) throw new Error('Could not find package name within ' + manifestPath)
-  var activityTag = /<activity\b[\s\S]*<\/activity>/.exec(manifestData)
-  if (!activityTag) throw new Error('Could not find <activity> within ' + manifestPath)
-  var activityName = /\bandroid:name\s*=\s*"(.+?)"/.exec(activityTag)
-  if (!activityName) throw new Error('Could not find android:name within ' + manifestPath)
+function readAppInfoFromManifest() {
+    var manifestPath = path.join(__dirname, '..', '..', 'AndroidManifest.xml');
+    var manifestData = fs.readFileSync(manifestPath, {encoding:'utf8'});
+    var packageName = /\bpackage\s*=\s*"(.+?)"/.exec(manifestData);
+    if (!packageName) throw new Error('Could not find package name within ' + manifestPath);
+    var activityTag = /<activity\b[\s\S]*<\/activity>/.exec(manifestData);
+    if (!activityTag) throw new Error('Could not find <activity> within ' + manifestPath);
+    var activityName = /\bandroid:name\s*=\s*"(.+?)"/.exec(activityTag);
+    if (!activityName) throw new Error('Could not find android:name within ' + manifestPath);
 
-  return packageName[1] + '/.' + activityName[1]
+    return packageName[1] + '/.' + activityName[1];
 }
 
-exports.getActivityName = function () {
-  return (cachedAppInfo = cachedAppInfo || readAppInfoFromManifest())
-}
+exports.getActivityName = function() {
+    return (cachedAppInfo = cachedAppInfo || readAppInfoFromManifest());
+};

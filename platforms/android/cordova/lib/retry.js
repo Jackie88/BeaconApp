@@ -21,7 +21,7 @@
 
 /* jshint node: true */
 
-'use strict'
+"use strict";
 
 /*
  * Retry a promise-returning function a number of times, propagating its
@@ -34,31 +34,33 @@
  * @returns {Promise}
  */
 module.exports.retryPromise = function (attemts_left, promiseFunction) {
-  // NOTE:
-  //      get all trailing arguments, by skipping the first two (attemts_left and
-  //      promiseFunction) because they shouldn't get passed to promiseFunction
-  var promiseFunctionArguments = Array.prototype.slice.call(arguments, 2)
 
-  return promiseFunction.apply(undefined, promiseFunctionArguments).then(
+    // NOTE:
+    //      get all trailing arguments, by skipping the first two (attemts_left and
+    //      promiseFunction) because they shouldn't get passed to promiseFunction
+    var promiseFunctionArguments = Array.prototype.slice.call(arguments, 2);
 
-    // on success pass results through
-    function onFulfilled (value) {
-      return value
-    },
+    return promiseFunction.apply(undefined, promiseFunctionArguments).then(
 
-    // on rejection either retry, or throw the error
-    function onRejected (error) {
-      attemts_left -= 1
+        // on success pass results through
+        function onFulfilled(value) {
+            return value;
+        },
 
-      if (attemts_left < 1) {
-        throw error
-      }
+        // on rejection either retry, or throw the error
+        function onRejected(error) {
 
-      console.log('A retried call failed. Retrying ' + attemts_left + ' more time(s).')
+            attemts_left -= 1;
 
-      // retry call self again with the same arguments, except attemts_left is now lower
-      var fullArguments = [attemts_left, promiseFunction].concat(promiseFunctionArguments)
-      return module.exports.retryPromise.apply(undefined, fullArguments)
-    }
-  )
-}
+            if (attemts_left < 1) {
+                throw error;
+            }
+
+            console.log("A retried call failed. Retrying " + attemts_left + " more time(s).");
+
+            // retry call self again with the same arguments, except attemts_left is now lower
+            var fullArguments = [attemts_left, promiseFunction].concat(promiseFunctionArguments);
+            return module.exports.retryPromise.apply(undefined, fullArguments);
+        }
+    );
+};

@@ -17,15 +17,18 @@
   },
   "homepage": "https://github.com/Jackie88/BeaconApp#readme",
   "standard": {
-  "ignore": [
-    "**/out/",
-    "/lib/select2/",
-    "/lib/ckeditor/",
-    "tmp.js",
-    "node_modules/**",
-    "*.min.js",
-    "bundle.js",
-    "coverage/**"
-  ]
-}
+    "ignore": [
+      "**/out/",
+      "/lib/select2/",
+      "/lib/ckeditor/",
+      "tmp.js",
+      "node_modules/**",
+      "*.min.js",
+      "bundle.js",
+      "coverage/**"
+    ]
+  },
+  "dependencies": {
+    "superspawn": "^0.1.0"
+  }
 }

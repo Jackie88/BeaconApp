@@ -1,3 +1,5 @@
+jQuery.sap.require('sap.ui.apouni.util.Formatter')
+
 sap.ui.controller('sap.ui.apouni.view.Master', {
   onInit: function () {
     this.oUpdateFinishedDeferred = jQuery.Deferred()
@@ -8,7 +10,36 @@ sap.ui.controller('sap.ui.apouni.view.Master', {
       }, this)
 
     sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
-      this.onRouteMatched, this)
+      this.onRouteMatched, this);
+
+    var that = this;
+    setInterval( function() {
+      if (app.beaconChanged) {
+        that.onBeaconChange(that);
+      }
+
+    }, 3000);
+
+    setInterval( function() {
+      app.changeBeacon();
+
+    }, 16000);
+
+  },
+
+  onBeaconChange: function(that) {
+      app.beaconChanged = false;
+     var oList = that.getView().byId('list')
+
+        aItems = oList.getItems()
+
+        beacon = app.getNearestBeacon();
+        for (var i = 0; i < aItems.length; i++) {
+            if (aItems[i].getBindingContext().getObject().Id == beacon.id) {
+               oList.setSelectedItem(aItems[i], true)
+               that.showDetail(aItems[i])
+            }
+          }
   },
 
   onRouteMatched: function (oEvent) {
@@ -33,7 +64,7 @@ sap.ui.controller('sap.ui.apouni.view.Master', {
             if (aItems[i].getBindingContext().getPath() === '/'
               + oArguments.product) {
               oList.setSelectedItem(aItems[i], true)
-              break
+              break;
             }
           }
         }
@@ -74,6 +105,7 @@ sap.ui.controller('sap.ui.apouni.view.Master', {
   },
 
   showDetail: function (oItem) {
+    console.log(app.getNearestBeacon());
     // If we're on a phone, include nav in history; if not, don't.
     var bReplace = jQuery.device.is.phone ? false : true
     sap.ui.core.UIComponent.getRouterFor(this).navTo('dealer', {

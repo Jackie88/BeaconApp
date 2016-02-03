@@ -3,7 +3,7 @@
 	xmlns:f="sap.ui.layout.form"
 	xmlns:core="sap.ui.core"
 	xmlns="sap.m">
-	
+
 	<l:Grid
 		defaultSpan="L12 M12 S12"
 		width="auto">
@@ -13,7 +13,7 @@
 				maxContainerCols="2"
 				editable="false"
 				layout="ResponsiveGridLayout"
-				title="Dealer Address Data"
+				title="Firm Address Data"
 				labelSpanL="3"
 				labelSpanM="3"
 				emptySpanL="4"
@@ -34,11 +34,11 @@
 				maxContainerCols="2"
 				editable="false"
 				layout="ResponsiveGridLayout"
-				title="Dealer Communication Data"
+				title="Firm Communication Data"
 				labelSpanL="3"
 				labelSpanM="3"
-				emptySpanL="4"
-				emptySpanM="4"
+				emptySpanL="3"
+				emptySpanM="3"
 				columnsL="1"
 				columnsM="1">
 				<f:content>
@@ -46,9 +46,10 @@
 					<Text text="{Phone}" />
 					<Label text="Email" />
 					<Text text="{Email}" />
+					<Button text="add contact" icon="sap-icon://add-contact" />
 				</f:content>
 			</f:SimpleForm>
 		</l:content>
 	</l:Grid>
-	
+
 </core:FragmentDefinition>

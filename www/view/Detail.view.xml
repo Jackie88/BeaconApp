@@ -1,13 +1,13 @@
 <mvc:View controllerName="sap.ui.apouni.view.Detail" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
 	xmlns="sap.m">
-	
+
 	<App>
 	<!-- dodanie translacji dla widoku -->
 		<Page title="{i18n>detailTitle}">
-		
+
 			<content>
-	
+				<Image height="50%" src="img/e.jpg"/>
 				<ObjectHeader title="{Firstname} {Lastname}" number="{Id}">
 					<attributes>
 						<ObjectAttribute text="{DealerCentrum}" />

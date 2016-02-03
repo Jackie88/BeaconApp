@@ -40,6 +40,14 @@
         "Dealer": "00002"
       },
       {
+        "VIN" : "WP123456789101219",
+        "Color" : "White",
+        "Model" : "911",
+        "ModelType" : "01",
+        "ProductionDate" : "2016",
+        "Dealer": "00002"
+      },
+      {
         "VIN" : "WP123456789101218",
         "Color" : "Red",
         "Model" : "Boxster",

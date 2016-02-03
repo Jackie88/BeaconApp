@@ -23,7 +23,7 @@ sap.ui.controller('sap.ui.apouni.view.Master', {
     setInterval( function() {
       app.changeBeacon();
 
-    }, 6000);
+    }, 16000);
 
   },
 

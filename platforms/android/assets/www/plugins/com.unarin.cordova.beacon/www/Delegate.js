@@ -1,4 +1,4 @@
-cordova.define('com.unarin.cordova.beacon.Delegate', function (require, exports, module) { /*
+cordova.define("com.unarin.cordova.beacon.Delegate", function(require, exports, module) { /*
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements.  See the NOTICE file
  distributed with this work for additional information
@@ -16,107 +16,108 @@ cordova.define('com.unarin.cordova.beacon.Delegate', function (require, exports,
  specific language governing permissions and limitations
  under the License.
  */
-  var _ = require('com.unarin.cordova.beacon.underscorejs')
-  var Regions = require('com.unarin.cordova.beacon.Regions')
 
-  /**
-   * Instances of this class are delegates between the {@link LocationManager} and
-   * the code that consumes the messages generated on in the native layer.
-   * 
-   * @example 
-   * 
-   * var delegate = new cordova.plugins.LocationManager.Delegate()
-   *
-   * delegate.didDetermineStateForRegion = function(region) {
-   *      console.log('didDetermineState:forRegion: ' + JSON.stringify(region))
-   * }
-   *
-   * delegate.didStartMonitoringForRegion = function (region) {
-   *      console.log('didStartMonitoringForRegion: ' + JSON.stringify(region))
-   * }
-   * 
-   * @returns {Delegate} An instance of the type {@type Delegate}.
-   */
-  function Delegate () {}
+var _ = require('com.unarin.cordova.beacon.underscorejs')
+var Regions = require('com.unarin.cordova.beacon.Regions')
 
-  /**
-   * A bunch of static pre-processor methods to parse and unmarshal the region objects.
-   */
-  Delegate.didDetermineStateForRegion = function (pluginResult) {
-    pluginResult.region = Regions.fromJson(pluginResult.region)
+/**
+ * Instances of this class are delegates between the {@link LocationManager} and
+ * the code that consumes the messages generated on in the native layer.
+ * 
+ * @example 
+ * 
+ * var delegate = new cordova.plugins.LocationManager.Delegate()
+ *
+ * delegate.didDetermineStateForRegion = function(region) {
+ *      console.log('didDetermineState:forRegion: ' + JSON.stringify(region))
+ * }
+ *
+ * delegate.didStartMonitoringForRegion = function (region) {
+ *      console.log('didStartMonitoringForRegion: ' + JSON.stringify(region))
+ * }
+ * 
+ * @returns {Delegate} An instance of the type {@type Delegate}.
+ */
+function Delegate () {}
+
+/**
+ * A bunch of static pre-processor methods to parse and unmarshal the region objects.
+ */
+Delegate.didDetermineStateForRegion = function (pluginResult) {
+  pluginResult.region = Regions.fromJson(pluginResult.region)
+}
+
+Delegate.didStartMonitoringForRegion = function (pluginResult) {
+  pluginResult.region = Regions.fromJson(pluginResult.region)
+}
+
+Delegate.didExitRegion = function (pluginResult) {
+  pluginResult.region = Regions.fromJson(pluginResult.region)
+}
+
+Delegate.didEnterRegion = function (pluginResult) {
+  pluginResult.region = Regions.fromJson(pluginResult.region)
+}
+
+Delegate.didRangeBeaconsInRegion = function (pluginResult) {
+  pluginResult.region = Regions.fromJson(pluginResult.region)
+}
+
+Delegate.peripheralManagerDidStartAdvertising = function (pluginResult) {
+  pluginResult.region = Regions.fromJson(pluginResult.region)
+}
+
+Delegate.peripheralManagerDidUpdateState = function (pluginResult) {}
+
+Delegate.didChangeAuthorizationStatus = function (status) {}
+
+Delegate.safeTraceLogging = function (message) {
+  if (!_.isString(message)) {
+    return
   }
-
-  Delegate.didStartMonitoringForRegion = function (pluginResult) {
-    pluginResult.region = Regions.fromJson(pluginResult.region)
+  try {
+    cordova.plugins.locationManager.appendToDeviceLog(message)
+  } catch (e) {
+    console.error('Fail in safeTraceLogging()' + e.message, e)
   }
+}
 
-  Delegate.didExitRegion = function (pluginResult) {
-    pluginResult.region = Regions.fromJson(pluginResult.region)
-  }
+/**
+* Default implementations of the Delegate methods which are noop.
+*/
 
-  Delegate.didEnterRegion = function (pluginResult) {
-    pluginResult.region = Regions.fromJson(pluginResult.region)
-  }
+Delegate.prototype.didDetermineStateForRegion = function () {
+  Delegate.safeTraceLogging('DEFAULT didDetermineStateForRegion()')
+}
 
-  Delegate.didRangeBeaconsInRegion = function (pluginResult) {
-    pluginResult.region = Regions.fromJson(pluginResult.region)
-  }
+Delegate.prototype.didStartMonitoringForRegion = function () {
+  Delegate.safeTraceLogging('DEFAULT didStartMonitoringForRegion()')
+}
 
-  Delegate.peripheralManagerDidStartAdvertising = function (pluginResult) {
-    pluginResult.region = Regions.fromJson(pluginResult.region)
-  }
+Delegate.prototype.didExitRegion = function () {
+  Delegate.safeTraceLogging('DEFAULT didExitRegion()')
+}
 
-  Delegate.peripheralManagerDidUpdateState = function (pluginResult) {}
+Delegate.prototype.didEnterRegion = function () {
+  Delegate.safeTraceLogging('DEFAULT didEnterRegion()')
+}
 
-  Delegate.didChangeAuthorizationStatus = function (status) {}
+Delegate.prototype.didRangeBeaconsInRegion = function () {
+  Delegate.safeTraceLogging('DEFAULT didRangeBeaconsInRegion()')
+}
 
-  Delegate.safeTraceLogging = function (message) {
-    if (!_.isString(message)) {
-      return
-    }
-    try {
-      cordova.plugins.locationManager.appendToDeviceLog(message)
-    } catch (e) {
-      console.error('Fail in safeTraceLogging()' + e.message, e)
-    }
-  }
+Delegate.prototype.peripheralManagerDidStartAdvertising = function () {
+  Delegate.safeTraceLogging('DEFAULT peripheralManagerDidStartAdvertising()')
+}
 
-  /**
-  * Default implementations of the Delegate methods which are noop.
-  */
+Delegate.prototype.peripheralManagerDidUpdateState = function () {
+  Delegate.safeTraceLogging('DEFAULT peripheralManagerDidUpdateState()')
+}
 
-  Delegate.prototype.didDetermineStateForRegion = function () {
-    Delegate.safeTraceLogging('DEFAULT didDetermineStateForRegion()')
-  }
+Delegate.prototype.didChangeAuthorizationStatus = function () {
+  Delegate.safeTraceLogging('DEFAULT didChangeAuthorizationStatus()')
+}
 
-  Delegate.prototype.didStartMonitoringForRegion = function () {
-    Delegate.safeTraceLogging('DEFAULT didStartMonitoringForRegion()')
-  }
+module.exports = Delegate
 
-  Delegate.prototype.didExitRegion = function () {
-    Delegate.safeTraceLogging('DEFAULT didExitRegion()')
-  }
-
-  Delegate.prototype.didEnterRegion = function () {
-    Delegate.safeTraceLogging('DEFAULT didEnterRegion()')
-  }
-
-  Delegate.prototype.didRangeBeaconsInRegion = function () {
-    Delegate.safeTraceLogging('DEFAULT didRangeBeaconsInRegion()')
-  }
-
-  Delegate.prototype.peripheralManagerDidStartAdvertising = function () {
-    Delegate.safeTraceLogging('DEFAULT peripheralManagerDidStartAdvertising()')
-  }
-
-  Delegate.prototype.peripheralManagerDidUpdateState = function () {
-    Delegate.safeTraceLogging('DEFAULT peripheralManagerDidUpdateState()')
-  }
-
-  Delegate.prototype.didChangeAuthorizationStatus = function () {
-    Delegate.safeTraceLogging('DEFAULT didChangeAuthorizationStatus()')
-  }
-
-  module.exports = Delegate
-
-})
+});
