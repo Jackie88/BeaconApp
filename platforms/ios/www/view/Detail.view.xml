@@ -8,7 +8,7 @@
 		  
       <customHeader>
           <Toolbar>
-            <Button type="Back" press="onNavBack"/>
+            <Button type="Back" press="onBackSelect"/>
             <ToolbarSpacer/>
             <Title text="{i18n>detailTitle}"/>     
             <ToolbarSpacer/>
