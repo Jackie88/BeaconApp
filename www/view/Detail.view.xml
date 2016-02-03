@@ -4,13 +4,25 @@
 
 	<App>
 	<!-- dodanie translacji dla widoku -->
-		<Page title="{i18n>detailTitle}">
+		<Page title="Detail Page">
+
+      <customHeader>
+          <Toolbar>
+            <Button type="Back" press="onNavBack"/>
+            <ToolbarSpacer/>
+            <Title text="{i18n>detailTitle}"/>
+            <ToolbarSpacer/>
+            <Button icon="sap-icon://favorite" press="onFavoriteSelect"/>
+          </Toolbar>
+        </customHeader>
 
 			<content>
-				<Image height="50%" src="img/e.jpg"/>
-				<ObjectHeader title="{Firstname} {Lastname}" number="{Id}">
+
+        <Image height="50%" src="img/e.jpg"/>
+
+        <ObjectHeader title="{Firstname} {Lastname}" number="{Id}">
 					<attributes>
-						<ObjectAttribute text="{DealerCentrum}" />
+						<ObjectAttribute text="jestem" />
 					</attributes>
 				</ObjectHeader>
 	<!-- użycie fragmentów zamiast wszystkiego w jednym pliku -->

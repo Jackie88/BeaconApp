@@ -37,10 +37,7 @@ sap.ui.controller('sap.ui.apouni.view.Detail', {
         if (oIconTabBar.getSelectedKey() === 'vehicle') {
           oView.byId('vehTable').getBinding('items').filter([filter])
         }
-
-
       }
-
     }, this)
 
   },
@@ -57,6 +54,10 @@ sap.ui.controller('sap.ui.apouni.view.Detail', {
       tab: oEvent.getParameter('selectedKey')
     }, true)
 
-  }
+  },
 
+  onFavoriteSelect: function (oView) {
+    var oData = this.getView().getModel()
+    alert("SIEMA")
+  }
 })

@@ -11,6 +11,23 @@ var app = (function () {
   // Nearest ranged beacon.
   var mNearestBeacon = null
 
+  mNearestBeacon = {
+    id: '00003',
+    uuid: 'b9407f30-f5f8-466e-aff9-25556b57fe6d',
+    major: 2510,
+    proximity: 2,
+    accuracy: 99,
+    rssi: 1
+  }
+
+  // only for testing without beacons
+  app.changeBeacon = function () {
+    app.beaconChanged = true
+    const items = ['00001', '00002', '00003']
+    mNearestBeacon.id = items[Math.floor(Math.random() * items.length)]
+    console.log('changed Beacon' + mNearestBeacon.id)
+  }
+
   // Timer that displays nearby beacons.
   var mNearestBeaconDisplayTimer = null
 
@@ -22,8 +39,7 @@ var app = (function () {
 
   // Mapping of region event state names.
   // These are used in the event display string.
-  var mRegionStateNames =
-  {
+  var mRegionStateNames = {
     'CLRegionStateInside': 'Enter',
     'CLRegionStateOutside': 'Exit'
   }
@@ -31,8 +47,7 @@ var app = (function () {
   // Here monitored regions are defined.
   // TODO: Update with uuid/major/minor for your beacons.
   // You can add as many beacons as you want to use.
-  var mRegions =
-  [
+  var mRegions = [
     {
       id: 'region1',
       uuid: 'b9407f30-f5f8-466e-aff9-25556b57fe6d',
@@ -57,14 +72,14 @@ var app = (function () {
   // region id to a string. You can adapt this to your
   // own needs, and add other data to be displayed.
   // TODO: Update with major/minor for your own beacons.
-  var mRegionData =
-  {
+  var mRegionData = {
     'region1': 'Region One',
     'region2': 'Region Two',
     'region3': 'Region Three'
   }
 
   app.initialize = function () {
+
     document.addEventListener('deviceready', onDeviceReady, false)
     document.addEventListener('pause', onAppToBackground, false)
     document.addEventListener('resume', onAppToForeground, false)
@@ -174,12 +189,14 @@ var app = (function () {
   }
 
   function isNearerThan (beacon1, beacon2) {
-    return beacon1.accuracy > 0
-    && beacon2.accuracy > 0
-    && beacon1.accuracy < beacon2.accuracy
+    return beacon1.accuracy > 0 &&
+    beacon2.accuracy > 0 &&
+    beacon1.accuracy < beacon2.accuracy
   }
 
+  app.beaconChanged = false;
   function updateNearestBeacon (beacons) {
+    console.log('updating')
     for (var i = 0; i < beacons.length; ++i) {
       var beacon = beacons[i]
       if (!mNearestBeacon) {
@@ -188,43 +205,49 @@ var app = (function () {
         if (isSameBeacon(beacon, mNearestBeacon) ||
           isNearerThan(beacon, mNearestBeacon)) {
           mNearestBeacon = beacon
+          if (isSameBeacon(beacon, mNearestBeacon)) {
+            app.beaconChanged = true;
+          }
         }
       }
     }
   }
 
   function displayNearestBeacon () {
-    if (!mNearestBeacon) { return; }
+    if (!mNearestBeacon) { return }
 
     // Update element.
-    var element = 'Nearest Beacon: '
-      + 'UUID: ' + mNearestBeacon.uuid + ' '
-      + 'Major: ' + mNearestBeacon.major + ' '
-      + 'Minor: ' + mNearestBeacon.minor + ' '
-      + 'Proximity: ' + mNearestBeacon.proximity + ' '
-      + 'Distance: ' + mNearestBeacon.accuracy + ' '
-      + 'RSSI: ' + mNearestBeacon.rssi + ' '
-    alert(element)
+    var element = 'Nearest Beacon: ' +
+      'UUID: ' + mNearestBeacon.uuid + ' ' +
+      'Major: ' + mNearestBeacon.major + ' ' +
+      'Minor: ' + mNearestBeacon.minor + ' ' +
+      'Proximity: ' + mNearestBeacon.proximity + ' ' +
+      'Distance: ' + mNearestBeacon.accuracy + ' ' +
+      'RSSI: ' + mNearestBeacon.rssi + ' '
+      // alert(element)
+  }
+  app.getNearestBeacon = function(){
+    return mNearestBeacon;
   }
 
   function displayRecentRegionEvent () {
     if (mAppInBackground) {
       // Set notification title.
       var event = mRegionEvents[mRegionEvents.length - 1]
-      if (!event) { return; }
+      if (!event) { return }
       var title = getEventDisplayString(event)
 
       // Create notification.
       cordova.plugins.notification.local.schedule({
         id: ++mNotificationId,
-      title: title })
+        title: title })
     }
   }
 
   function getEventDisplayString (event) {
-    return event.time + ': '
-    + mRegionStateNames[event.type] + ' '
-    + mRegionData[event.regionId]
+    return event.time + ': ' +
+    mRegionStateNames[event.type] + ' ' +
+    mRegionData[event.regionId]
   }
 
   function getTimeNow () {
@@ -241,7 +264,6 @@ var app = (function () {
   }
 
   return app
-
 })()
 
 app.initialize()

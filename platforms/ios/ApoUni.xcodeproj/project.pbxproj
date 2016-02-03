@@ -46,6 +46,7 @@
 		558A1FF965C340EDAA207C5E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C0A115211341C98E31339B /* CoreLocation.framework */; };
 		0549C9F7EE7E4C57BFD05550 /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = B441DAB1E9304058A54BAC50 /* CDVDevice.m */; };
 		531B89E386154AEF99EA809C /* APPLocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE7A34C2D224D4AB2628FB5 /* APPLocalNotification.m */; };
+		A85710DE317C45919F4A2D56 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A32CCE847634487AFFAFE46 /* CDVLogger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,8 @@
 		79400F19DD4547E28650733E /* CDVDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVDevice.h"; path = "cordova-plugin-device/CDVDevice.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		6CE7A34C2D224D4AB2628FB5 /* APPLocalNotification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "APPLocalNotification.m"; path = "de.appplant.cordova.plugin.local-notification/APPLocalNotification.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		4580B0B55D2147D28783F410 /* APPLocalNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "APPLocalNotification.h"; path = "de.appplant.cordova.plugin.local-notification/APPLocalNotification.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		5A32CCE847634487AFFAFE46 /* CDVLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVLogger.m"; path = "cordova-plugin-console/CDVLogger.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		79817945D1BB41EFA8D5C6F8 /* CDVLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLogger.h"; path = "cordova-plugin-console/CDVLogger.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +238,8 @@
 				79400F19DD4547E28650733E /* CDVDevice.h */,
 				6CE7A34C2D224D4AB2628FB5 /* APPLocalNotification.m */,
 				4580B0B55D2147D28783F410 /* APPLocalNotification.h */,
+				5A32CCE847634487AFFAFE46 /* CDVLogger.m */,
+				79817945D1BB41EFA8D5C6F8 /* CDVLogger.h */,
 			);
 			name = Plugins;
 			path = "ApoUni/Plugins";
@@ -424,6 +429,7 @@
 				8F8CD022B137433EAA1EA4CF /* LMLogger.m in Sources */,
 				0549C9F7EE7E4C57BFD05550 /* CDVDevice.m in Sources */,
 				531B89E386154AEF99EA809C /* APPLocalNotification.m in Sources */,
+				A85710DE317C45919F4A2D56 /* CDVLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

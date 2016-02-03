@@ -37,10 +37,7 @@ sap.ui.controller('sap.ui.apouni.view.Detail', {
         if (oIconTabBar.getSelectedKey() === 'vehicle') {
           oView.byId('vehTable').getBinding('items').filter([filter])
         }
-
-
       }
-
     }, this)
 
   },
@@ -50,13 +47,17 @@ sap.ui.controller('sap.ui.apouni.view.Detail', {
     sap.ui.core.UIComponent.getRouterFor(this).myNavBack('main')
   },
 
-
   onDetailSelect: function (oEvent) {
     sap.ui.core.UIComponent.getRouterFor(this).navTo('dealer', {
       product: oEvent.getSource().getBindingContext().getPath().slice(1),
       tab: oEvent.getParameter('selectedKey')
     }, true)
 
-  }
+  },
 
+  onFavoriteSelect: function (oView) {
+    var oData = this.getView().getModel()
+    console.log(oData)
+
+  }
 })
