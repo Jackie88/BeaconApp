@@ -57,8 +57,17 @@ sap.ui.controller('sap.ui.apouni.view.Detail', {
   onFavoriteSelect: function (evt) {
     const oModel = this.getView().getModel()
     const id = this.getView().getBindingContext().getObject().Id
+    const fav = this.getView().getBindingContext().getObject().Favorite
+    var newId
 
-    oModel.setProperty('/DealerSet(' + id + ')/Favorite', '1')
+    if (fav=='0') {
+      newId = '1'
+    } else {
+      newId = '0'
+    }
+    console.log(id)
+    console.log(newId)
+    oModel.setProperty('/DealerSet(' + id + ')/Favorite', newId)
     // console.log(oModel.getProperty('/DealerSet(' + id + ')/Favorite'))
   }
 })
