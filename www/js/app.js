@@ -20,14 +20,14 @@ var app = (function () {
     rssi: 1
   }
 
-  //only for testing without beacons
-  app.changeBeacon = function(){
-    app.beaconChanged = true;
+  // only for testing without beacons
+  app.changeBeacon = function () {
+    app.beaconChanged = true
+    const items = ['00001', '00002', '00003']
+    mNearestBeacon.id = items[Math.floor(Math.random() * items.length)]
+    console.log('changed Beacon' + mNearestBeacon.id)
+  }
 
-    items =['00001', '00002','00003'];
-    mNearestBeacon.id = items[Math.floor(Math.random()*items.length)];
-    console.log("changed Beacon" + mNearestBeacon.id);
-  };
   // Timer that displays nearby beacons.
   var mNearestBeaconDisplayTimer = null
 
@@ -223,8 +223,8 @@ var app = (function () {
       'Minor: ' + mNearestBeacon.minor + ' ' +
       'Proximity: ' + mNearestBeacon.proximity + ' ' +
       'Distance: ' + mNearestBeacon.accuracy + ' ' +
-      'RSSI: ' + mNearestBeacon.rssi + ' ' +
-      alert(element)
+      'RSSI: ' + mNearestBeacon.rssi + ' '
+      // alert(element)
   }
   app.getNearestBeacon = function(){
     return mNearestBeacon;

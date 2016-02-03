@@ -85,6 +85,9 @@
         },
         "com.unarin.cordova.beacon": {
             "PACKAGE_NAME": "com.ui.apouni"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.ui.apouni"
         }
     },
     "dependent_plugins": {},
@@ -166,6 +169,7 @@
         "cordova-plugin-whitelist": "1.2.0",
         "cordova-plugin-device": "1.1.1-dev",
         "de.appplant.cordova.plugin.local-notification": "0.7.6",
-        "com.unarin.cordova.beacon": "3.3.0"
+        "com.unarin.cordova.beacon": "3.3.0",
+        "cordova-plugin-console": "1.0.2"
     }
 }

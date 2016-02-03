@@ -15,6 +15,9 @@
         },
         "com.unarin.cordova.beacon": {
             "PACKAGE_NAME": "com.ui.apouni"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.ui.apouni"
         }
     },
     "dependent_plugins": {

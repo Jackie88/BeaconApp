@@ -10,8 +10,7 @@ sap.ui.core.routing.Router.extend('sap.ui.apouni.Router', {
   },
 
   myNavBack: function (sRoute, mData) {
-    var oHistory = sap.ui.core.routing.History
-      .getInstance()
+    var oHistory = sap.ui.core.routing.History.getInstance()
     var sPreviousHash = oHistory.getPreviousHash()
 
     // The history contains a previous entry

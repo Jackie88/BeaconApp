@@ -9,7 +9,8 @@
         "City" : "Poznań",
         "Country" : "Poland",
         "Email" : "porsche@poznan.com",
-        "ActiveVehicles" : "2"
+        "ActiveVehicles" : "2",
+        "Favorite" : "0"
       },
        {
         "Id" : "00002",
@@ -21,7 +22,8 @@
         "City" : "Warszawa",
         "Country" : "Poland",
         "Email" : "porsche@warszawa.com",
-        "ActiveVehicles" : "4"
+        "ActiveVehicles" : "4",
+        "Favorite" : "0"
       },
        {
         "Id" : "00003",
@@ -33,6 +35,7 @@
         "City" : "Katowice",
         "Country" : "Poland",
         "Email" : "porsche@katowice.com",
-        "ActiveVehicles" : "1"
+        "ActiveVehicles" : "1",
+        "Favorite" : "0"
       }
 ]
