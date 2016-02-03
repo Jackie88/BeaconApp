@@ -35,7 +35,7 @@ sap.ui.controller('sap.ui.apouni.view.Detail', {
           filter = new sap.ui.model.Filter('Dealer', sap.ui.model.FilterOperator.EQ, dealerId)
 
         if (oIconTabBar.getSelectedKey() === 'vehicle') {
-          oView.byId('vehTable').getBinding('items').filter([filter])
+          oView.byId('prodTable').getBinding('items').filter([filter])
         }
       }
     }, this)
@@ -54,12 +54,20 @@ sap.ui.controller('sap.ui.apouni.view.Detail', {
     }, true)
   },
 
-  onBackSelect: function () {
-    sap.ui.core.UIComponent.getRouterFor(this).navTo('main')
-  },
-  
-  onFavoriteSelect: function (oView) {
-    var oData = this.getView().getModel()
-   
+  onFavoriteSelect: function (evt) {
+    const oModel = this.getView().getModel()
+    const id = this.getView().getBindingContext().getObject().Id
+    const fav = this.getView().getBindingContext().getObject().Favorite
+    var newId
+
+    if (fav=='0') {
+      newId = '1'
+    } else {
+      newId = '0'
+    }
+    console.log(id)
+    console.log(newId)
+    oModel.setProperty('/DealerSet(' + id + ')/Favorite', newId)
+    // console.log(oModel.getProperty('/DealerSet(' + id + ')/Favorite'))
   }
 })

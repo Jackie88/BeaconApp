@@ -49,25 +49,29 @@ var app = (function () {
   // You can add as many beacons as you want to use.
   var mRegions = [
     {
-      id: 'region1',
+      id: '00001',
       uuid: 'b9407f30-f5f8-466e-aff9-25556b57fe6d',
       major: 2510,
       minor: 30783
     },
     {
-      id: 'region2',
+      id: '00002',
       uuid: 'b9407f30-f5f8-466e-aff9-25556b57fe6d',
       major: 42572,
       minor: 35852
     },
     {
-      id: 'region3',
+      id: '00003',
       uuid: 'b9407f30-f5f8-466e-aff9-25556b57fe6d',
       major: 6679,
       minor: 57467
     }
   ]
-
+  var hash = {
+      'b9407f30-f5f8-466e-aff9-25556b57fe6d:2510:30783': {id:'00001'},
+      'b9407f30-f5f8-466e-aff9-25556b57fe6d:42572:35852':  {id:'00002'},
+      'b9407f30-f5f8-466e-aff9-25556b57fe6d:6679:57467':  {id:'00003'}
+  }
   // Region data is defined here. Mapping used is from
   // region id to a string. You can adapt this to your
   // own needs, and add other data to be displayed.
@@ -102,7 +106,7 @@ var app = (function () {
 
   function startNearestBeaconDisplayTimer () {
     // display nearest beeacon every 5 sec
-    mNearestBeaconDisplayTimer = setInterval(displayNearestBeacon, 5000)
+    mNearestBeaconDisplayTimer = setInterval(displayNearestBeacon, 3000)
   }
 
   function stopNearestBeaconDisplayTimer () {
@@ -198,16 +202,22 @@ var app = (function () {
   function updateNearestBeacon (beacons) {
     console.log('updating')
     for (var i = 0; i < beacons.length; ++i) {
-      var beacon = beacons[i]
+      var beacon = beacons[i];
       if (!mNearestBeacon) {
-        mNearestBeacon = beacon
+        mNearestBeacon =  beacon;
+        app.beaconId = hash[getBeaconId(beacon)];
+
       } else {
         if (isSameBeacon(beacon, mNearestBeacon) ||
           isNearerThan(beacon, mNearestBeacon)) {
-          mNearestBeacon = beacon
-          if (isSameBeacon(beacon, mNearestBeacon)) {
-            app.beaconChanged = true;
-          }
+          mNearestBeacon = beacon;
+          app.beaconId = hash[getBeaconId(beacon)];
+          app.beaconChanged = true;
+          // alert(JSON.stringify(beacon));
+          // if (isSameBeacon(beacon, mNearestBeacon)) {
+          //   alert(app.beaconChanged);
+          //   app.beaconChanged = false;
+          // }
         }
       }
     }

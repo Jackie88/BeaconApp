@@ -1,21 +1,21 @@
 <mvc:View controllerName="sap.ui.apouni.view.Detail" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
 	xmlns="sap.m">
-	
+
 	<App>
 	<!-- dodanie translacji dla widoku -->
 		<Page title="Detail Page">
-		  
+
       <customHeader>
           <Toolbar>
             <Button type="Back" press="onBackSelect"/>
             <ToolbarSpacer/>
-            <Title text="{i18n>detailTitle}"/>     
+            <Title text="{i18n>detailTitle}"/>
             <ToolbarSpacer/>
             <Button icon="sap-icon://favorite" press="onFavoriteSelect"/>
           </Toolbar>
-        </customHeader>  
-        
+        </customHeader>
+
 			<content>
         <ObjectHeader title="{Firstname} {Lastname}" number="{Id}">
 					<attributes>
@@ -36,11 +36,11 @@
 						</content>
 					</IconTabFilter>
 					<IconTabFilter
-						key="vehicle"
+						key="directions"
 						text="{i18n>iconTabFilterVehicle}"
 						icon="sap-icon://car-rental">
 						<content>
-							<core:Fragment fragmentName="sap.ui.apouni.view.VehiclesForm" type="XML" />
+							<core:Fragment fragmentName="sap.ui.apouni.view.DirectionsForm" type="XML" />
 						</content>
 					</IconTabFilter>
 				</items>

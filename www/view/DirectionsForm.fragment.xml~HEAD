@@ -3,32 +3,32 @@
 	xmlns:f="sap.ui.layout.form"
 	xmlns:core="sap.ui.core"
 	xmlns="sap.m">
-	
-<Table id="prodTable" items="{/DirectionSet}">  
-  <columns>  
+
+<Table id="vehTable" items="{/VehicleSet}">
+  <columns>
     <Column width="12em">
       <Text text="VIN" />
-    </Column>  
+    </Column>
     <Column minScreenWidth="Tablet" demandPopin="true">
       <Text text="Model" />
-    </Column>  
+    </Column>
     <Column minScreenWidth="Tablet" demandPopin="true">
       <Text text="Model type" />
     </Column>
     <Column minScreenWidth="Tablet" demandPopin="true">
       <Text text="Production date" />
-    </Column>                        
-  </columns>  
-  <items>  
-    <ColumnListItem>  
-      <cells>  
-        <Text text="{VIN}" />  
-        <Text text="{Model}" />  
-        <Text text="{ModelType}" />  
+    </Column>
+  </columns>
+  <items>
+    <ColumnListItem>
+      <cells>
+        <Text text="{VIN}" />
+        <Text text="{Model}" />
+        <Text text="{ModelType}" />
         <Text text="{ProductionDate}" />
-      </cells>  
-    </ColumnListItem>  
-  </items>  
-</Table>  
-	
+      </cells>
+    </ColumnListItem>
+  </items>
+</Table>
+
 </core:FragmentDefinition>

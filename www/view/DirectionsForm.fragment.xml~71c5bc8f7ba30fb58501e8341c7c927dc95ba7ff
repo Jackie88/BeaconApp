@@ -4,7 +4,7 @@
 	xmlns:core="sap.ui.core"
 	xmlns="sap.m">
 	
-<Table id="vehTable" items="{/VehicleSet}">  
+<Table id="prodTable" items="{/DirectionSet}">  
   <columns>  
     <Column width="12em">
       <Text text="VIN" />

@@ -14,14 +14,18 @@ sap.ui.controller('sap.ui.apouni.view.Master', {
     var that = this
 
     setInterval(function () {
+      var beacon = app.getNearestBeacon()
+      // alert(beaconChanged.id);
       if (app.beaconChanged) {
         that.onBeaconChange(that)
+        // alert(app.beaconId.id);
+
       }
     }, 3000)
-    
-    setInterval(function () {
-      app.changeBeacon()
-    }, 6000)
+
+    // setInterval(function () {
+    //   app.changeBeacon()
+    // }, 600000)
   },
 
   onBeaconChange: function (that) {
@@ -32,7 +36,7 @@ sap.ui.controller('sap.ui.apouni.view.Master', {
     var beacon = app.getNearestBeacon()
 
     for (var i = 0; i < aItems.length; i++) {
-      if (aItems[i].getBindingContext().getObject().Id == beacon.id) {
+      if (aItems[i].getBindingContext().getObject().Id == app.beaconId.id) {
         oList.setSelectedItem(aItems[i], true)
         that.showDetail(aItems[i])
       }
