@@ -13,7 +13,7 @@
 				maxContainerCols="2"
 				editable="false"
 				layout="ResponsiveGridLayout"
-				title="Firm Address Data"
+				title="Company Address"
 				labelSpanL="3"
 				labelSpanM="3"
 				emptySpanL="4"
@@ -21,12 +21,12 @@
 				columnsL="1"
 				columnsM="1">
 				<f:content>
+          <Label text="Country" />
+					<Text text="{Country}" />
+          <Label text="City" />
+					<Text text="{City}" />
 					<Label text="Street" />
 					<Text text="{Street}" />
-					<Label text="City" />
-					<Text text="{City}" />
-					<Label text="Country" />
-					<Text text="{Country}" />
 				</f:content>
 				</f:SimpleForm>
 				<f:SimpleForm
@@ -34,7 +34,7 @@
 				maxContainerCols="2"
 				editable="false"
 				layout="ResponsiveGridLayout"
-				title="Firm Communication Data"
+				title="Company Representant"
 				labelSpanL="3"
 				labelSpanM="3"
 				emptySpanL="3"
@@ -42,6 +42,10 @@
 				columnsL="1"
 				columnsM="1">
 				<f:content>
+          <Label text="Name" />
+					<Text text="{Firstname} {Lastname}" />  
+          <Label text="Position" />
+					<Text text="{Position}" />  
 					<Label text="Phone" />
 					<Text text="{Phone}" />
 					<Label text="Email" />

@@ -16,7 +16,10 @@
 				<Property Name="Lastname" Type="Edm.String" Nullable="false"
 					MaxLength="100" sap:label="Character 100" sap:creatable="false"
 					sap:updatable="false" sap:sortable="false" sap:filterable="false" />
-				<Property Name="DealerCentrum" Type="Edm.String" Nullable="false"
+        <Property Name="Position" Type="Edm.String" Nullable="false"
+					MaxLength="100" sap:label="Character 100" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+				<Property Name="CompanyName" Type="Edm.String" Nullable="false"
 					MaxLength="100" sap:label="Character 100" sap:creatable="false"
 					sap:updatable="false" sap:sortable="false" sap:filterable="false" />
 				<Property Name="Phone" Type="Edm.Int32" Nullable="false"

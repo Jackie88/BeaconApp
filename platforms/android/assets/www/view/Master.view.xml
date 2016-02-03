@@ -26,11 +26,11 @@
 							<ObjectListItem
 									type="{device>/listItemType}"
 									press="onSelect"
-									title="{DealerCentrum}"
-									number = "{ActiveVehicles}"						
-									numberUnit="Vehicles"
-									numberState="{path: 'ActiveVehicles', formatter: 'sap.ui.apouni.util.Formatter.checkNumber'}"
+									title="{CompanyName}"
 									>
+                  <firstStatus>
+                    <ObjectStatus icon="sap-icon://favorite" state="{path: 'Favorite', formatter: 'sap.ui.apouni.util.Formatter.checkFavorite'}"/>
+                  </firstStatus>
 							</ObjectListItem>
 						</items>
 				</List>

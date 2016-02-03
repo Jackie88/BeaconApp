@@ -18,7 +18,7 @@ sap.ui.controller('sap.ui.apouni.view.Master', {
       // alert(beaconChanged.id);
       if (app.beaconChanged) {
         that.onBeaconChange(that)
-        alert(app.beaconId.id);
+        // alert(app.beaconId.id);
 
       }
     }, 3000)
