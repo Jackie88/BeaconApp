@@ -52,12 +52,15 @@ sap.ui.controller('sap.ui.apouni.view.Detail', {
       product: oEvent.getSource().getBindingContext().getPath().slice(1),
       tab: oEvent.getParameter('selectedKey')
     }, true)
+  },
 
+  onBackSelect: function () {
+    sap.ui.core.UIComponent.getRouterFor(this).navTo('main')
   },
 
   onFavoriteSelect: function (oView) {
     var oData = this.getView().getModel()
-    console.log(oData)
-
+    // this.getBindingContext().getObject()
+    console.log(oView.getBindingContext().getObject());
   }
 })

@@ -37,10 +37,13 @@
 				<Property Name="ActiveVehicles" Type="Edm.String" Nullable="false"
 					sap:label="ACTIVEVEHICLES" sap:creatable="false" sap:updatable="false"
 					sap:sortable="false" sap:filterable="false" />
-        <Property Name="Favorite" Type="Edm.String" Nullable="false"
+        		<Property Name="Favorite" Type="Edm.String" Nullable="false"
 					sap:label="FAVORITE" sap:creatable="false" sap:updatable="false"
 					sap:sortable="false" sap:filterable="false" />
-          
+				<Property Name="imagePath" Type="Edm.String" Nullable="false"
+					sap:label="IMAGEPATH" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+
 			</EntityType>
 			<EntityType Name="Vehicle" sap:content-version="1">
 				<Key>

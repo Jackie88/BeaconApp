@@ -1,0 +1,58 @@
+<mvc:View controllerName="sap.ui.apouni.view.Detail" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns="sap.m">
+
+	<App>
+	<!-- dodanie translacji dla widoku -->
+		<Page title="Detail Page">
+
+      <customHeader>
+          <Toolbar>
+            <Button type="Back" press="onBackSelect"/>
+            <ToolbarSpacer/>
+            <Title text="{i18n>detailTitle}"/>
+            <ToolbarSpacer/>
+            <Button icon="sap-icon://favorite" press="onFavoriteSelect"/>
+          </Toolbar>
+        </customHeader>
+
+			<content>
+
+        <Image height="50%" src="img/e.jpg"/>
+
+        <ObjectHeader title="{Firstname} {Lastname}" number="{Id}">
+					<attributes>
+						<ObjectAttribute text="jestem" />
+					</attributes>
+				</ObjectHeader>
+	<!-- użycie fragmentów zamiast wszystkiego w jednym pliku -->
+				<IconTabBar
+				select="onDetailSelect"
+				id="idIconTabBar">
+				<items>
+					<IconTabFilter
+						key="dealer"
+						text="{i18n>iconTabFilterDealer}"
+						icon="sap-icon://home">
+						<content>
+							<core:Fragment fragmentName="sap.ui.apouni.view.DealerAddressForm" type="XML" />
+						</content>
+					</IconTabFilter>
+					<IconTabFilter
+						key="vehicle"
+						text="{i18n>iconTabFilterVehicle}"
+						icon="sap-icon://car-rental">
+						<content>
+							<core:Fragment fragmentName="sap.ui.apouni.view.VehiclesForm" type="XML" />
+						</content>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+			</content>
+			<footer>
+				<Bar>
+				</Bar>
+			</footer>
+		</Page>
+	</App>
+</mvc:View>
