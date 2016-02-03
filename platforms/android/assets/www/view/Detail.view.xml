@@ -8,7 +8,7 @@
 
       <customHeader>
           <Toolbar>
-            <Button type="Back" press="onBackSelect"/>
+            <Button type="Back" press="onNavBack"/>
             <ToolbarSpacer/>
             <Title text="{i18n>detailTitle}"/>
             <ToolbarSpacer/>
@@ -18,7 +18,7 @@
 
 			<content>
 
-        <Image height="50%" src="img/e.jpg"/>
+        <Image height="50%" src="{imagePath}"/>
 
         <ObjectHeader title="{Firstname} {Lastname}" number="{Id}">
 					<attributes>
@@ -43,7 +43,7 @@
 						text="{i18n>iconTabFilterVehicle}"
 						icon="sap-icon://car-rental">
 						<content>
-							<core:Fragment fragmentName="sap.ui.apouni.view.VehiclesForm" type="XML" />
+							<core:Fragment fragmentName="sap.ui.apouni.view.DirectionsForm" type="XML" />
 						</content>
 					</IconTabFilter>
 				</items>

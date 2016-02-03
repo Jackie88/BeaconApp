@@ -10,7 +10,8 @@
         "Country" : "Poland",
         "Email" : "porsche@poznan.com",
         "ActiveVehicles" : "2",
-        "Favorite" : "0"
+        "Favorite" : "0",
+        "imagePath" : "img/1.jpg"
       },
        {
         "Id" : "00002",
@@ -23,7 +24,9 @@
         "Country" : "Poland",
         "Email" : "porsche@warszawa.com",
         "ActiveVehicles" : "4",
-        "Favorite" : "0"
+        "Favorite" : "0",
+        "imagePath" : "img/2.jpg"
+
       },
        {
         "Id" : "00003",
@@ -36,6 +39,7 @@
         "Country" : "Poland",
         "Email" : "porsche@katowice.com",
         "ActiveVehicles" : "1",
-        "Favorite" : "0"
+        "Favorite" : "0",
+        "imagePath" : "img/3.jpg"
       }
 ]

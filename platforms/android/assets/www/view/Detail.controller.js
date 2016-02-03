@@ -54,12 +54,11 @@ sap.ui.controller('sap.ui.apouni.view.Detail', {
     }, true)
   },
 
-  onBackSelect: function () {
-    sap.ui.core.UIComponent.getRouterFor(this).navTo('main')
-  },
-  
-  onFavoriteSelect: function (oView) {
-    var oData = this.getView().getModel()
-   
+  onFavoriteSelect: function (evt) {
+    const oModel = this.getView().getModel()
+    const id = this.getView().getBindingContext().getObject().id
+
+    oModel.setProperty('/DealerSet(' + id + ')/Favorite', '1')
+    // console.log(oModel.getProperty('/DealerSet(' + id + ')/Favorite'))
   }
 })
