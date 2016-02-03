@@ -102,7 +102,6 @@ sap.ui.controller('sap.ui.apouni.view.Master', {
   },
 
   showDetail: function (oItem) {
-    console.log(app.getNearestBeacon());
     // If we're on a phone, include nav in history; if not, don't.
     var bReplace = jQuery.device.is.phone ? false : true
     sap.ui.core.UIComponent.getRouterFor(this).navTo('dealer', {
