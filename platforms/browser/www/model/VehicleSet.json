@@ -1,0 +1,58 @@
+[    
+      {
+        "VIN" : "WP123456789101213",
+        "Color" : "Red",
+        "Model" : "911",
+        "ModelType" : "01",
+        "ProductionDate" : "1969",
+        "Dealer": "00001"
+      },
+      {
+        "VIN" : "WP123456789101214",
+        "Color" : "Blue",
+        "Model" : "Boxster",
+        "ModelType" : "02",
+        "ProductionDate" : "2000",
+        "Dealer": "00002"
+      },
+      {
+        "VIN" : "WP123456789101215",
+        "Color" : "Black",
+        "Model" : "Cayenne",
+        "ModelType" : "03",
+        "ProductionDate" : "2015",
+        "Dealer": "00003"
+      },
+      {
+        "VIN" : "WP123456789101216",
+        "Color" : "Red",
+        "Model" : "Panamera",
+        "ModelType" : "01",
+        "ProductionDate" : "2014",
+        "Dealer": "00002"
+      },
+      {
+        "VIN" : "WP123456789101217",
+        "Color" : "Red",
+        "Model" : "Macan",
+        "ModelType" : "01",
+        "ProductionDate" : "2015",
+        "Dealer": "00002"
+      },
+      {
+        "VIN" : "WP123456789101219",
+        "Color" : "White",
+        "Model" : "911",
+        "ModelType" : "01",
+        "ProductionDate" : "2016",
+        "Dealer": "00002"
+      },
+      {
+        "VIN" : "WP123456789101218",
+        "Color" : "Red",
+        "Model" : "Boxster",
+        "ModelType" : "02",
+        "ProductionDate" : "2001",
+        "Dealer": "00001"
+      }
+]
